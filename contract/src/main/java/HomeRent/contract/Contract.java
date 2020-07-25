@@ -1,17 +1,24 @@
-package HomeRent;
+package HomeRent.contract;
 
-public class Contracted extends AbstractEvent {
+import HomeRent.auditing.AuditableUser;
 
+import javax.persistence.*;
+import java.sql.Date;
+
+@Entity
+@Table(name="Contract_table")
+public class Contract extends AuditableUser {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
-    private String name;
-    private String phoneNumber;
-    private String address;
-    private String birthDate;
-    private String registrationNumber;
-    private Date createDate;
-    private Date updateDate;
-    private String createUser;
-    private String updateUser;
+    /*
+        private Long tenantId;
+        private String name;
+        private String phoneNumber;
+        private String address;
+        private String birthDate;
+        private String registrationNumber;
+    */
     private String contractNumber;
     private String contractYear;
     private String dongNumber;
@@ -30,10 +37,24 @@ public class Contracted extends AbstractEvent {
     private Date balancePaymentDate;
     private String rentPaymentDate;
     private String specialContract;
-    private Long tenantId;
+/*
+    private Date createDate;
+    private Date updateDate;
+    private String createUser;
+    private String updateUser;
+*/
+/*
+    @OneToOne(mappedBy = "contract")
+    private Tenant tenant;
+ */
+    @OneToOne
+    @JoinColumn(name = "tenant_id")
+    private Tenant tenant;
 
-    public Contracted(){
-        super();
+    public Contract() {}
+    public Contract(Long id, Tenant tenant) {
+        this.id = id;
+        this.tenant = tenant;
     }
 
     public Long getId() {
@@ -43,69 +64,7 @@ public class Contracted extends AbstractEvent {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
-    public String getRegistrationNumber() {
-        return registrationNumber;
-    }
-
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationNumber = registrationNumber;
-    }
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-    public String getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser;
-    }
     public String getContractNumber() {
         return contractNumber;
     }
@@ -113,6 +72,7 @@ public class Contracted extends AbstractEvent {
     public void setContractNumber(String contractNumber) {
         this.contractNumber = contractNumber;
     }
+
     public String getContractYear() {
         return contractYear;
     }
@@ -120,6 +80,7 @@ public class Contracted extends AbstractEvent {
     public void setContractYear(String contractYear) {
         this.contractYear = contractYear;
     }
+
     public String getDongNumber() {
         return dongNumber;
     }
@@ -127,6 +88,7 @@ public class Contracted extends AbstractEvent {
     public void setDongNumber(String dongNumber) {
         this.dongNumber = dongNumber;
     }
+
     public String getHoNumber() {
         return hoNumber;
     }
@@ -134,6 +96,7 @@ public class Contracted extends AbstractEvent {
     public void setHoNumber(String hoNumber) {
         this.hoNumber = hoNumber;
     }
+
     public Date getContractDate() {
         return contractDate;
     }
@@ -141,6 +104,7 @@ public class Contracted extends AbstractEvent {
     public void setContractDate(Date contractDate) {
         this.contractDate = contractDate;
     }
+
     public String getRentalType() {
         return rentalType;
     }
@@ -148,6 +112,7 @@ public class Contracted extends AbstractEvent {
     public void setRentalType(String rentalType) {
         this.rentalType = rentalType;
     }
+
     public Integer getDeposit() {
         return deposit;
     }
@@ -155,6 +120,7 @@ public class Contracted extends AbstractEvent {
     public void setDeposit(Integer deposit) {
         this.deposit = deposit;
     }
+
     public Integer getMonthlyRent() {
         return monthlyRent;
     }
@@ -162,6 +128,7 @@ public class Contracted extends AbstractEvent {
     public void setMonthlyRent(Integer monthlyRent) {
         this.monthlyRent = monthlyRent;
     }
+
     public Date getContractPeriodStart() {
         return contractPeriodStart;
     }
@@ -169,6 +136,7 @@ public class Contracted extends AbstractEvent {
     public void setContractPeriodStart(Date contractPeriodStart) {
         this.contractPeriodStart = contractPeriodStart;
     }
+
     public Date getContractPeriodEnd() {
         return contractPeriodEnd;
     }
@@ -176,6 +144,7 @@ public class Contracted extends AbstractEvent {
     public void setContractPeriodEnd(Date contractPeriodEnd) {
         this.contractPeriodEnd = contractPeriodEnd;
     }
+
     public Date getEarnestPaymentDate() {
         return earnestPaymentDate;
     }
@@ -183,6 +152,7 @@ public class Contracted extends AbstractEvent {
     public void setEarnestPaymentDate(Date earnestPaymentDate) {
         this.earnestPaymentDate = earnestPaymentDate;
     }
+
     public Integer getEarnest() {
         return earnest;
     }
@@ -190,6 +160,7 @@ public class Contracted extends AbstractEvent {
     public void setEarnest(Integer earnest) {
         this.earnest = earnest;
     }
+
     public Integer getSecondPayment() {
         return secondPayment;
     }
@@ -197,6 +168,7 @@ public class Contracted extends AbstractEvent {
     public void setSecondPayment(Integer secondPayment) {
         this.secondPayment = secondPayment;
     }
+
     public Date getSecondPaymentDate() {
         return secondPaymentDate;
     }
@@ -204,6 +176,7 @@ public class Contracted extends AbstractEvent {
     public void setSecondPaymentDate(Date secondPaymentDate) {
         this.secondPaymentDate = secondPaymentDate;
     }
+
     public Integer getBalance() {
         return balance;
     }
@@ -211,6 +184,7 @@ public class Contracted extends AbstractEvent {
     public void setBalance(Integer balance) {
         this.balance = balance;
     }
+
     public Date getBalancePaymentDate() {
         return balancePaymentDate;
     }
@@ -218,6 +192,7 @@ public class Contracted extends AbstractEvent {
     public void setBalancePaymentDate(Date balancePaymentDate) {
         this.balancePaymentDate = balancePaymentDate;
     }
+
     public String getRentPaymentDate() {
         return rentPaymentDate;
     }
@@ -225,6 +200,7 @@ public class Contracted extends AbstractEvent {
     public void setRentPaymentDate(String rentPaymentDate) {
         this.rentPaymentDate = rentPaymentDate;
     }
+
     public String getSpecialContract() {
         return specialContract;
     }
@@ -232,11 +208,45 @@ public class Contracted extends AbstractEvent {
     public void setSpecialContract(String specialContract) {
         this.specialContract = specialContract;
     }
-    public Long getTenantId() {
-        return tenantId;
+/*
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setTenantId(Long tenantId) {
-        this.tenantId = tenantId;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    public String getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
+
+*/
+    public Tenant getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
     }
 }
