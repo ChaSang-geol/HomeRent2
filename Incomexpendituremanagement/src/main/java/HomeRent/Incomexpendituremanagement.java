@@ -1,11 +1,12 @@
 package HomeRent;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
 @Table(name="Importexpendituremanagement_table")
-public class Importexpendituremanagement {
+public class Incomexpendituremanagement {
 
         @Id
         @GeneratedValue(strategy=GenerationType.AUTO)
