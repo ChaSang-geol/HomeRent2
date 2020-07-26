@@ -1,6 +1,8 @@
 package HomeRent;
 
-public class ImportsAmountRegistered extends AbstractEvent {
+import java.sql.Date;
+
+public class IncomsAmountRegistered extends AbstractEvent {
 
     private Long id;
     private String classification;

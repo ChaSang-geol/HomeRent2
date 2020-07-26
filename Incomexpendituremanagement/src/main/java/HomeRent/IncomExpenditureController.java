@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
  @RestController
- public class ImportExpenditureController {
+ public class IncomExpenditureController {
 
 
  }

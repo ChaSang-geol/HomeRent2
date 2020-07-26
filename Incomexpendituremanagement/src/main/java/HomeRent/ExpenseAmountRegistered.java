@@ -1,15 +1,9 @@
 package HomeRent;
 
-import javax.persistence.*;
-import org.springframework.beans.BeanUtils;
-import java.util.List;
+import java.sql.Date;
 
-@Entity
-@Table(name="ImportExpenditure_table")
-public class ImportExpenditure {
+public class ExpenseAmountRegistered extends AbstractEvent {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String classification;
     private Date occurrenceDate;
@@ -19,21 +13,6 @@ public class ImportExpenditure {
     private String accountSubject;
     private String dongNumber;
     private String hoNumber;
-
-    @PostPersist
-    public void onPostPersist(){
-        ImportsAmountRegistered importsAmountRegistered = new ImportsAmountRegistered();
-        BeanUtils.copyProperties(this, importsAmountRegistered);
-        importsAmountRegistered.publishAfterCommit();
-
-
-        ExpenseAmountRegistered expenseAmountRegistered = new ExpenseAmountRegistered();
-        BeanUtils.copyProperties(this, expenseAmountRegistered);
-        expenseAmountRegistered.publishAfterCommit();
-
-
-    }
-
 
     public Long getId() {
         return id;
@@ -98,8 +77,4 @@ public class ImportExpenditure {
     public void setHoNumber(String hoNumber) {
         this.hoNumber = hoNumber;
     }
-
-
-
-
 }

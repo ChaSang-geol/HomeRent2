@@ -1,7 +1,16 @@
 package HomeRent;
 
-public class ExpenseAmountRegistered extends AbstractEvent {
+import javax.persistence.*;
+import org.springframework.beans.BeanUtils;
 
+import java.sql.Date;
+
+@Entity
+@Table(name="ImportExpenditure_table")
+public class IncomExpenditure {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String classification;
     private Date occurrenceDate;
@@ -11,6 +20,21 @@ public class ExpenseAmountRegistered extends AbstractEvent {
     private String accountSubject;
     private String dongNumber;
     private String hoNumber;
+
+    @PostPersist
+    public void onPostPersist(){
+        IncomsAmountRegistered incomsAmountRegistered = new IncomsAmountRegistered();
+        BeanUtils.copyProperties(this, incomsAmountRegistered);
+        incomsAmountRegistered.publishAfterCommit();
+
+
+        ExpenseAmountRegistered expenseAmountRegistered = new ExpenseAmountRegistered();
+        BeanUtils.copyProperties(this, expenseAmountRegistered);
+        expenseAmountRegistered.publishAfterCommit();
+
+
+    }
+
 
     public Long getId() {
         return id;
@@ -75,4 +99,8 @@ public class ExpenseAmountRegistered extends AbstractEvent {
     public void setHoNumber(String hoNumber) {
         this.hoNumber = hoNumber;
     }
+
+
+
+
 }

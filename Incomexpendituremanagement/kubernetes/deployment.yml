@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Importexpendituremanagement
+  name: Incomexpendituremanagement
   labels:
-    app: Importexpendituremanagement
+    app: Incomexpendituremanagement
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: Importexpendituremanagement
+      app: Incomexpendituremanagement
   template:
     metadata:
       labels:
-        app: Importexpendituremanagement
+        app: Incomexpendituremanagement
     spec:
       containers:
-        - name: Importexpendituremanagement
-          image: username/Importexpendituremanagement:latest
+        - name: Incomexpendituremanagement
+          image: username/Incomexpendituremanagement:latest
           ports:
             - containerPort: 8080
           readinessProbe:

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>HomeRent</groupId>
-	<artifactId>Importexpendituremanagement</artifactId>
+	<artifactId>Incomexpendituremanagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Importexpendituremanagement</name>
+	<name>Incomexpendituremanagement</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
