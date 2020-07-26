@@ -1,13 +1,13 @@
-package HomeRent.importexpenditure;
+package HomeRent.incomeexpenditure;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import HomeRent.auditing.CommonDateEntity;
+
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-public class ImportExpenditure {
+@Table(name="IncomeExpenditure_table")
+public class IncomeExpenditure extends CommonDateEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
@@ -19,11 +19,6 @@ public class ImportExpenditure {
     private String accountSubject;
     private String dongNumber;
     private String hoNumber;
-
-    private Date createDate;
-    private Date updateDate;
-    private String createUser;
-    private String updateUser;
 
     public Long getId() {
         return id;
@@ -97,39 +92,8 @@ public class ImportExpenditure {
         this.hoNumber = hoNumber;
     }
 
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-
-    public String getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser;
-    }
-
-    public ImportExpenditure(Long id, String classification, Date occurrenceDate, String correspondent, String summary, Integer amount, String accountSubject, String dongNumber, String hoNumber, Date createDate, Date updateDate, String createUser, String updateUser) {
+    public IncomeExpenditure() {}
+    public IncomeExpenditure(Long id, String classification, Date occurrenceDate, String correspondent, String summary, Integer amount, String accountSubject, String dongNumber, String hoNumber, Date createDate, Date updateDate, String createUser, String updateUser) {
         this.id = id;
         this.classification = classification;
         this.occurrenceDate = occurrenceDate;
@@ -139,9 +103,5 @@ public class ImportExpenditure {
         this.accountSubject = accountSubject;
         this.dongNumber = dongNumber;
         this.hoNumber = hoNumber;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-        this.createUser = createUser;
-        this.updateUser = updateUser;
     }
 }

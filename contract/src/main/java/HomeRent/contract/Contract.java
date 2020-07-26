@@ -1,13 +1,14 @@
 package HomeRent.contract;
 
 import HomeRent.auditing.AuditableUser;
+import HomeRent.auditing.CommonDateEntity;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Table(name="Contract_table")
-public class Contract extends AuditableUser {
+public class Contract extends CommonDateEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
