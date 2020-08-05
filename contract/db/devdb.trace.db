@@ -1,0 +1,3 @@
+2020-07-27 17:17:21 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "TENANT_TABLE[*] SELECT * FROM CONTRACT_TABLE"; expected "TRUNCATE"; SQL statement:
+TENANT_TABLE SELECT * FROM CONTRACT_TABLE [42001-200]
