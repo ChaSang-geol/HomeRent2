@@ -10,7 +10,7 @@ import java.sql.Date;
 public class IncomeExpenditure extends CommonDateEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    private Long Id;
     private String classification;
     private Date occurrenceDate;
     private String correspondent;
@@ -21,11 +21,11 @@ public class IncomeExpenditure extends CommonDateEntity {
     private String hoNumber;
 
     public Long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getClassification() {
@@ -94,7 +94,7 @@ public class IncomeExpenditure extends CommonDateEntity {
 
     public IncomeExpenditure() {}
     public IncomeExpenditure(Long id, String classification, Date occurrenceDate, String correspondent, String summary, Integer amount, String accountSubject, String dongNumber, String hoNumber, Date createDate, Date updateDate, String createUser, String updateUser) {
-        this.id = id;
+        this.Id = id;
         this.classification = classification;
         this.occurrenceDate = occurrenceDate;
         this.correspondent = correspondent;

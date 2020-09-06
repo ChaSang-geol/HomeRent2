@@ -1,5 +1,6 @@
 package HomeRent.contract;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,21 +24,21 @@ import HomeRent.contract.ContractRepository;
 
 
 @RestController
-
+@RequestMapping("/v2/contracts")
 public class ContractController {
 
     @Autowired
     ContractRepository contractRepository;
 
-    @GetMapping("/Contracts")
-    public ResponseEntity<List<Contract>> getAllContracts(@RequestParam(required = false) String honumber) {
+    @GetMapping
+    public ResponseEntity<List<Contract>> getAllContracts(@RequestParam(required = false) String hoNumber) {
         try {
             List<Contract> contracts = new ArrayList<Contract>();
 
-            if (honumber == null)
+            if (hoNumber == null)
                 contractRepository.findAll().forEach(contracts::add);
             else
-                contractRepository.findByHoNumber(honumber).forEach(contracts::add);
+                contractRepository.findByHoNumber(hoNumber).forEach(contracts::add);
 
             if (contracts.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -49,7 +50,7 @@ public class ContractController {
         }
     }
 
-    @GetMapping("/Contracts/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Contract> getContractById(@PathVariable("id") long id) {
         Optional<Contract> ContractData = contractRepository.findById(id);
 
@@ -60,51 +61,80 @@ public class ContractController {
         }
     }
 
-    @PostMapping("/Contracts")
-    public ResponseEntity<Contract> createContract(@RequestBody Contract Contract) {
+    @PostMapping
+    public ResponseEntity<Contract> createContract(@RequestBody Contract contract) {
         try {
             Contract _Contract = contractRepository
-                    .save(new Contract(Contract.getId(), Contract.getTenant()));
-            return new ResponseEntity<>(_Contract, HttpStatus.CREATED);
+                    .save(new Contract(getContract(contract).getId(),
+                            //contract.getId(),
+                            getContract(contract).getContractNumber(),
+                            getContract(contract).getContractYear(),
+                            getContract(contract).getDongNumber(),
+                            getContract(contract).getHoNumber(),
+                            getContract(contract).getContractDate(),
+                            getContract(contract).getRentalType(),
+                            getContract(contract).getDeposit(),
+                            getContract(contract).getMonthlyRent(),
+                            getContract(contract).getContractPeriodStart(),
+                            getContract(contract).getContractPeriodEnd(),
+                            getContract(contract).getEarnestPaymentDate(),
+                            getContract(contract).getEarnest(),
+                            getContract(contract).getSecondPayment(),
+                            getContract(contract).getSecondPaymentDate(),
+                            getContract(contract).getBalance(),
+                            getContract(contract).getBalancePaymentDate(),
+                            getContract(contract).getRentPaymentDate(),
+                            getContract(contract).getSpecialContract(),
+                            getContract(contract).getTenant()
+                            )
+                    );
+
+
+
+            return new ResponseEntity<>(getContract(_Contract), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
         }
     }
 
-    @PutMapping("/Contracts/{id}")
+    private Contract getContract(@RequestBody Contract contract) {
+        return contract;
+    }
+
+    @PutMapping("/{id}")
     public ResponseEntity<Contract> updateContract(@PathVariable("id") long id, @RequestBody Contract contract) {
         Optional<Contract> ContractData = contractRepository.findById(id);
 
         if (ContractData.isPresent()) {
             Contract _Contract = ContractData.get();
-            _Contract.setBalance(contract.getBalance());
-            _Contract.setBalancePaymentDate(contract.getBalancePaymentDate());
-            _Contract.setContractDate(contract.getContractDate());
-            _Contract.setContractNumber(contract.getContractNumber());
-            _Contract.setContractPeriodEnd(contract.getContractPeriodEnd());
-            _Contract.setContractPeriodStart(contract.getContractPeriodStart());
-            _Contract.setContractYear(contract.getContractYear());
-            _Contract.setDeposit(contract.getDeposit());
-            _Contract.setDongNumber(contract.getDongNumber());
-            _Contract.setEarnest(contract.getEarnest());
-            _Contract.setEarnestPaymentDate(contract.getEarnestPaymentDate());
-            _Contract.setHoNumber(contract.getHoNumber());
-            _Contract.setMonthlyRent(contract.getMonthlyRent());
-            _Contract.setRentalType(contract.getRentalType());
-            _Contract.setRentPaymentDate(contract.getRentPaymentDate());
-            _Contract.setSecondPayment(contract.getSecondPayment());
-            _Contract.setSecondPaymentDate(contract.getSecondPaymentDate());
-            _Contract.setSpecialContract(contract.getSpecialContract());
+            getContract(_Contract).setBalance(getContract(contract).getBalance());
+            getContract(_Contract).setBalancePaymentDate(getContract(contract).getBalancePaymentDate());
+            getContract(_Contract).setContractDate(getContract(contract).getContractDate());
+            getContract(_Contract).setContractNumber(getContract(contract).getContractNumber());
+            getContract(_Contract).setContractPeriodEnd(getContract(contract).getContractPeriodEnd());
+            getContract(_Contract).setContractPeriodStart(getContract(contract).getContractPeriodStart());
+            getContract(_Contract).setContractYear(getContract(contract).getContractYear());
+            getContract(_Contract).setDeposit(getContract(contract).getDeposit());
+            getContract(_Contract).setDongNumber(getContract(contract).getDongNumber());
+            getContract(_Contract).setEarnest(getContract(contract).getEarnest());
+            getContract(_Contract).setEarnestPaymentDate(getContract(contract).getEarnestPaymentDate());
+            getContract(_Contract).setHoNumber(getContract(contract).getHoNumber());
+            getContract(_Contract).setMonthlyRent(getContract(contract).getMonthlyRent());
+            getContract(_Contract).setRentalType(getContract(contract).getRentalType());
+            getContract(_Contract).setRentPaymentDate(getContract(contract).getRentPaymentDate());
+            getContract(_Contract).setSecondPayment(getContract(contract).getSecondPayment());
+            getContract(_Contract).setSecondPaymentDate(getContract(contract).getSecondPaymentDate());
+            getContract(_Contract).setSpecialContract(getContract(contract).getSpecialContract());
 
-            _Contract.setTenant(contract.getTenant());
+            //_Contract.setTenant(contract.getTenant());
 
-            return new ResponseEntity<>(contractRepository.save(_Contract), HttpStatus.OK);
+            return new ResponseEntity<>(contractRepository.save(getContract(_Contract)), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/Contracts/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteContract(@PathVariable("id") long id) {
         try {
             contractRepository.deleteById(id);
@@ -114,7 +144,7 @@ public class ContractController {
         }
     }
 
-    @DeleteMapping("/Contracts")
+    @DeleteMapping
     public ResponseEntity<HttpStatus> deleteAllContracts() {
         try {
             contractRepository.deleteAll();
@@ -125,7 +155,7 @@ public class ContractController {
 
     }
  /*
-    @GetMapping("/Contracts/published")
+    @GetMapping("/published")
     public ResponseEntity<List<Contract>> findByPublished() {
         try {
             List<Contract> Contracts = contractRepository.findByPublished(true);

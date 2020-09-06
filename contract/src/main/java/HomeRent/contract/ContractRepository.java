@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ContractRepository extends JpaRepository <Contract, Long>{
-    List<Contract> findByHoNumber(String honumber);
+    List<Contract> findByHoNumber(String hoNumber);
 }

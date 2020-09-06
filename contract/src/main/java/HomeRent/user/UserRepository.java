@@ -38,11 +38,12 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * Returns all users with the given firstname. This method will be translated into a query using the one declared in
      * the {@link Query} annotation declared one.
      *
-     * @param firstname
+     * @param username
      * @return
      */
-    @Query("select u from User u where u.firstname = :firstname")
-    List<User> findByFirstname(String firstname);
+    @Query("select u from User u where u.username = :username")
+    //List<User> findByFirstname(String username);
+    List<User> findByUsernameList(String username);
 
     /**
      * Returns all users with the given name as first- or lastname. This makes the query to method relation much more
@@ -50,17 +51,17 @@ public interface UserRepository extends CrudRepository<User, Long> {
      *
      * @param name
      * @return
-     */
+
     @Query("select u from User u where u.firstname = :name or u.lastname = :name")
     List<User> findByFirstnameOrLastname(String name);
-
+*/
     /**
      * Returns the total number of entries deleted as their lastnames match the given one.
      *
-     * @param lastname
+     * @param username
      * @return
      */
-    Long removeByLastname(String lastname);
+    Long removeByUsername(String username);
 
     /**
      * Returns a {@link Slice} counting a maximum number of {@link Pageable#getPageSize()} users matching given criteria
@@ -69,9 +70,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * @param lastname
      * @param page
      * @return
-     */
-    Slice<User> findByLastnameOrderByUsernameAsc(String lastname, Pageable page);
 
+    Slice<User> findByLastnameOrderByUsernameAsc(String lastname, Pageable page);
+*/
     /**
      * Return the first 2 users ordered by their lastname asc.
      *
@@ -80,9 +81,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * </pre>
      *
      * @return
-     */
-    List<User> findFirst2ByOrderByLastnameAsc();
 
+    List<User> findFirst2ByOrderByLastnameAsc();
+*/
     /**
      * Return the first 2 users ordered by the given {@code sort} definition.
      *
@@ -102,6 +103,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
      * @param user
      * @return
      */
-    @Query("select u from User u where u.firstname = :#{#user.firstname} or u.lastname = :#{#user.lastname}")
-    Iterable<User> findByFirstnameOrLastname(User user);
+    @Query("select u from User u where u.userid = :#{#user.userid} or u.username = :#{#user.username}")
+    Iterable<User> findByUseridOrUsername(User user);
 }

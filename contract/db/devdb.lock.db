@@ -1,6 +1,6 @@
 #FileLock
-#Mon Jul 27 12:41:57 KST 2020
-server=10.91.38.157\:1801
+#Thu Aug 27 20:47:08 KST 2020
+server=192.168.0.20\:7907
 hostName=SKCC19N01142.skcorp.net
 method=file
-id=1738e5cdc930ee7574b18f3357456bb6c131504b82b
+id=1742fbe347234070c9ea894295fd5203ed3ca876999
