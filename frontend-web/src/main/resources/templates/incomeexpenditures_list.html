@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/defaultLayout">
+
+<head>
+    <title>수입지출 관리</title>
+    <th:block th:replace="fragments/commonHead"></th:block>
+    <script>
+    /* globals feather:false */
+    (function () {
+      feather.replace();
+    }())
+
+    // 날짜입력 (datePicker)초기화
+    initDatePicker = function (controlId) {
+      var controlDate = $("#" + controlId);
+      if (controlDate.length == 0) { return; }
+
+      controlDate.datepicker({
+        assumeNearbyYear: false,
+        autoclose: true, // 자동으로 창을 닫는다
+        format: "yyyy-mm-dd", // 일자 형식
+        language: "ko", // 언어코드 ( 한국어 )
+        todayBtn: true, // 오늘 버튼
+        todayHighlight: true, // 오늘에 하이라이트
+        templates: {
+          leftArrow: '&lt;',
+          rightArrow: '&gt;'
+        }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
+        clearBtn: false // 닫기 버튼
+      });
+
+    }
+    // 날짜 입력 달력을 보여준다.
+    showDatePickerCalendar = function (_controlId) {
+      var ctrl = document.getElementById(_controlId); // 컨트롤을 찾는다.
+      if (ctrl != null) {
+        $(ctrl).datepicker('show');// 달력을 보인다.
+      }
+      //return false;
+    }
+
+    // 초기화 함수 호출 & 날짜 입력 버튼 클릭시 달력이 보이도록 한다
+    initDatePicker("add-occurrenceDate");
+	initDatePicker("edit-occurrenceDate");
+    //  검색 팝업화면으로 이동 부분 여기에
+    function fn_goSearchPop(num) {
+
+      $('#popSearch').modal({
+        keyboard: false
+      });
+    }
+
+    </script>
+</head>
+<body>
+<th:block th:replace="fragments/commonMenu"></th:block>
+<main role="main">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>수입지출 관리</h2>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#/add-incomeexpenditure">
+                    <router-link :to="{path: '/add-incomeexpenditure'}">등록</router-link>
+                </a></li>
+                <li class="list-inline-item"><a href="#/incomeexpenditure/:1/edit">
+                    <router-link :to="{path: '/incomeexpenditure/:1/edit'}">수정</router-link>
+                </a></li>
+                <li class="list-inline-item"><a>
+                    <router-link :to="{path: '/incomeexpenditure'}">목록</router-link>
+                </a></li>
+            </ul>
+        </div>
+        <main id="app">
+            <router-view></router-view>
+        </main>
+
+
+        <!--    테이블형 입력-->
+        <template id="incomeexpenditure">
+            <div id="list-data">
+                <div class="table-responsive">
+                    <form class="needs-validation" novalidate @submit="updateIncomeExpenditure">
+                        <table class="table" style="min-width:140px;">
+                            <colgroup>
+                                <col style="width: 50px;  min-width: 50px;">
+                                <col style="width: 120px; min-width: 120px;">
+                                <col style="width: 84px;  min-width: 84px;">
+                                <col style="width: 84px;  min-width: 84px;">
+                                <col style="width: 170px; min-width: 170px;">
+                                <col style="width: auto; min-width: 300px;">
+                                <col style="width: 170px; min-width: 170px;">
+                                <col style="width: 160px; min-width: 160px;">
+                                <col style="width: 170px; min-width: 170px;">
+                                <col style="width: 180px; min-width: 180px;">
+
+                            </colgroup>
+                            <thead class="thead-dark">
+                            <tr>
+                                <th style="width: 50px;  min-width: 50px;">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="allcheck">
+                                        <label class="custom-control-label" for="allcheck"></label>
+                                    </div>
+                                </th>
+                                <th style="width: 120px; min-width: 120px;">수입/지출</th>
+                                <th style="width: 84px;  min-width: 84px;">동</th>
+                                <th style="width: 84px;  min-width: 84px;">호</th>
+                                <th style="width: 170px; min-width: 170px;">발생일자</th>
+                                <th style="width: auto; min-width: 300px;">상세내역</th>
+                                <th style="width: 170px; min-width: 170px;">거래처</th>
+                                <th style="width: 160px; min-width: 160px;">계정과목</th>
+                                <th style="width: 170px; min-width: 170px;">금액</th>
+                                <th style="width: 180px; min-width: 180px;">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="reqIncomOutcom{{incomeexpenditure.no}}">
+                                        <label class="custom-control-label"
+                                               for="reqIncomOutcom{{incomeexpenditure.no}}"></label>
+                                    </div>
+                                </td>
+                                <td>{{incomeexpenditure.classification}}</td>
+                                <td>{{incomeexpenditure.dongNumber}}</td>
+                                <td>{{incomeexpenditure.hoNumber}}</td>
+                                <td>{{incomeexpenditure.occurrenceDate}}</td>
+                                <td>{{incomeexpenditure.summary}}</td>
+                                <td>{{incomeexpenditure.correspondent}}</td>
+                                <td>{{incomeexpenditure.accountSubject}}</td>
+                                <td>{{incomeexpenditure.amount}}</td>
+                                <td>
+                                    <button class="btn btn-primary"
+                                            v-on:click="IncomeExpenditureEdit(incomeexpenditure)">Edit
+                                    </button>
+                                    <button class="btn btn-danger"
+                                            v-on:click="deleteIncomeExpenditure(incomeexpenditure.id)">Delete
+                                    </button>
+                                    <!--                                    <a ><router-link :to="{name: 'incomeexpenditure-delete', params: {incomeexpenditure_id: incomeexpenditure.id}}" class="btn btn-danger btn-xs">삭제</router-link>-->
+                                    <!--                                    </a>-->
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </form>
+                </div>
+            </div>
+        </template>
+    </div>
+</main>
+<!-- Footer -->
+<footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2020 Hunihome</p>
+    <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacy</a></li>
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+</footer>
+
+<!-- 플러그인 파일들 -->
+<th:block th:replace="fragments/commonScript"></th:block>
+<!--공통스크립트 들-->
+<!--현재 페이지 사용 스크립트-->
+
+<script th:src="@{/incomeexpenditure.js}"></script>
+<script th:src="@{/js/form-validation.js}"></script>
+<script>
+    // Initialize as global component
+    //import date-picker from '../static/js/DatePicker/DatePicker';
+    //Vue.component('date-picker', VueBootstrapDatetimePicker);
+
+</script>
+
+</body>
+</html>

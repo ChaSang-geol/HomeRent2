@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="/">Home Project</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsHomeRent"
+            aria-controls="navbarsHomeRent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsHomeRent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">계약관리</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="/contracts">임대차 계약서목록</a>
+                    <a class="dropdown-item" href="/contracts#/add-contract">계약정보 등록</a>
+                    <a class="dropdown-item" href="/contract-print">계약서 출력</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/incomeexpenditures">수입/지출관리</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users/list">사용자 정보 관리</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>

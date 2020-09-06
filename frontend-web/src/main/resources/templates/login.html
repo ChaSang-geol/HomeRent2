@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Rent</title>
+    <th:block th:replace="fragments/commonHead"></th:block>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      body {
+        font-family: 'Noto Sans', sans-serif;
+        /*  font-family: 'Roboto', sans-serif; */
+        font-size: 20px;
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/signin.css}" type="text/css" rel="stylesheet">
+</head>
+<body class="text-center">
+<th:block th:replace="fragments/commonMenu"></th:block>
+<form class="form-signin" th:action="@{/login}" method="POST">
+    <img class="mb-4" src="/images/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Please log in</h1>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="inputEmail" name="email" class="form-control" placeholder="이메일 주소" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="비밀번호" required>
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+    <div align="center" th:if="${param.error}">
+        <p style="font-size: 20; color: #FF1C19;">이메일 주소 또는 비밀번호를 확인하여 주십시오.</p>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+</form>
+</body>
+</html>

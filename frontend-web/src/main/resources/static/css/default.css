@@ -1,0 +1,55 @@
+@import "./font.css";
+
+html, body {
+    /*font-size: 16px;*/
+    /*font-family:'Noto Sans', sans-serif;*/
+    /*기본 폰트  */
+  }
+  
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position: fixed;
+  top: 0; /*48px;*/
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    top: 4rem;
+  }
+
+}
+
+.actions {
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+}
+.container-title h1 {
+  margin-top: 3.6rem;
+}
+body {
+  padding-top: 3.5rem;
+}
+
+.container_A {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 100%;
+    max-width: 98%;
+    padding-left: 0px;
+    padding-right: 0px;
+}

@@ -1,0 +1,597 @@
+<template id="contract-print">
+    <div class="contract-print">
+            <!-- Modal -->
+            <div class="modal" id="contractPrintModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+                 aria-labelledby="contractPrintModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="contractPrintModalLabel">표준임대차계약서</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="contents">
+                                <div id="page1">
+                                    <p dir="ltr" style=" "><span style="font-size:8pt;color:#000000;font-weight:400;">■ 민간임대주택에 관한 특별법 시행규칙 [별지 제25호서식]</span>
+                                    </p>
+
+                                    <h1>표준임대차계약서(Ⅱ)</h1>
+
+                                    <p dir="ltr" style="text-align: center;margin-top: -1em;font-size: 0.9em;"><span>(그 밖의 민간임대주택용)</span></p>
+
+                                    <p dir="ltr" style="text-align: right;"><span style="font-size:8pt;">(3쪽 중 제1쪽)</span></p>
+
+                                    <p dir="ltr" style="padding: 0pt 0pt 0pt 5pt; text-align: left;">
+                                        <span>아래 표시주택을 임대차함에 있어 임대인&nbsp;</span><span style="color:#315f97;font-weight:700;">김경자</span><span>(이하 &quot;갑&quot;이라 한다)과 임차인</span><span
+                                            style="color:#315f97;font-weight:700;">&nbsp;{{contract.tenant.name}}&nbsp;</span><span>(이하 &quot;을&quot;이라 한다)은 아래의 내용으로 임대차계약을 체결하고 이를 증명하기 위하여 계약서 2통을 작성하여 &quot;갑&quot;과 &quot;을&quot;이 각각 서명날인한 후 각 1통씩 보관한다.</span>
+                                    </p>
+
+                                    <p dir="ltr" style="margin-left: 20px;"><span style="font-size:9pt;">※ 개업공인중개사가 임대차계약서를 작성하는 경우에는 계약서 3통을 작성하여 &quot;갑&quot;과 &quot;을&quot; 및 개업공인중개사가 각각 서명날인한 후 각 1통씩 보관한다.</span>
+                                    </p>
+
+                                    <p dir="ltr" class="text_h1"><span style="">1. 계약자</span></p>
+                                    <p dir="ltr" class="text_h2"><span>가. 갑(임대인)</span></p>
+                                    <p dir="ltr" class="text_h2"><span>1) 성명(또는 회사명): 김 경 자 &nbsp; &nbsp;</span><span
+                                            style="font-size:8pt;color:#999999;">(서명 또는 인)</span></p>
+                                    <p dir="ltr" class="text_h2"><span>2) 주소(주사무소 소재지): 경기도 부천시 석천로44, 301호(상동,전원주택)(전화번호) 010-2709-3547</span>
+                                    </p>
+                                    <p dir="ltr" class="text_h2"><span>3) 주민등록번호(사업자등록번호): 760315-2_________ (141-90-54147)</span></p>
+                                    <p dir="ltr" class="text_h2"><span>4) 임대사업자등록번호: 2019-부천시-임대사업자-2110</span></p>
+                                    <p dir="ltr" class="text_h2"><span>나.을(임차인)</span></p>
+                                    <p dir="ltr" class="text_h2"><span>1) 성명: {{contract.tenant.name}} &nbsp; &nbsp;&nbsp;</span><span
+                                            style="font-size:8pt;color:#999999;">(서명 또는 인)</span></p>
+                                    <p dir="ltr" class="text_h2"><span>2) 주소: {{contract.tenant.address}} (전화번호) {{contract.tenant.phoneNumber}}</span></p>
+                                    <p dir="ltr" class="text_h2"><span>3) 주민등록번호: {{contract.tenant.birthDate}}-{{contract.tenant.registrationNumber}}</span></p>
+                                    <p dir="ltr" class="text_h1"><span>2. 개업공인중개사</span></p>
+                                    <p dir="ltr" class="text_h2"><span>1) 사무소명:</span></p>
+                                    <p dir="ltr" class="text_h2"><span>2) 대표자 성명: &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span><span
+                                            style="font-size:8pt;color:#999999;">(서명 또는 인)</span></p>
+                                    <p dir="ltr" class="text_h2"><span>3) 주소(주사무소 소재지): (전화번호)</span></p>
+                                    <p dir="ltr" class="text_h2"><span>4) 허가번호:</span></p>
+                                    <p dir="ltr" class="text_h1"><span>3. 계약일: {{contract.contractDate}}</span></p>
+                                    <p dir="ltr" class="text_h1"><span>4. 민간임대주택의 표시</span></p>
+
+                                    <div align="left" dir="ltr" style="margin-left:0pt;">
+
+                                        <table class="table_type1">
+                                            <colgroup>
+                                                <col width="*"/>
+                                                <col width="10%"/>
+                                                <col width="10%"/>
+                                                <col width="8.5%"/>
+                                                <col width="8%"/>
+                                                <col width="7%"/>
+                                                <col width="25%"/>
+                                                <col width="8.5%"/>
+                                            </colgroup>
+                                            <tbody>
+                                            <tr>
+                                                <th style="" class="cel_type01">
+                                                    <span>주택 소재지</span>
+                                                </th>
+                                                <td colspan="7" style="">
+                                                    <span>경기도 파주시 파주읍 교육길 45-21(연풍리 416-18번지) 도시형생활주택 그린힐</span><span
+                                                        style="color: rgb(49, 95, 151); font-weight: 700;">{{contract.dongNumber}}동{{contract.hoNumber}}호</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="" class="cel_type01">
+                                                    <span>주택 유형</span>
+                                                </th>
+                                                <td colspan="7" style="">
+                                                    <span>아파트[ ] 연립주택[☑] 다세대주택[ ] 다가구주택[ ] 그 밖의 주택[ ]</span></br>
+                                                    <span>※ 도시형생활주택 원룸임</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th rowspan="4" style="" class="cel_type01">
+                                                    <span>민간임대주택 면적</span>
+                                                </th>
+                                                <td rowspan="2" style="" class="cel_type01">
+                                                    <span>방의 수</span>
+                                                </td>
+                                                <td rowspan="2" style="" class="cel_type01">
+                                                    <span>규모별</span>
+                                                </td>
+                                                <td colspan="5" style="" class="cel_type01">
+                                                    <span>면적(㎡)</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="2" style="" class="cel_type01">
+                                                    <span>전용</span></br>
+                                                    <span>면적</span>
+                                                </td>
+                                                <td colspan="3" style="" class="cel_type01">
+                                                    <span>공용면적</span>
+                                                </td>
+                                                <td rowspan="2" style="" class="cel_type01">
+                                                    <span>합계</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="2" style="" class="cel_type01">
+                                                    <span>1</span>
+                                                </td>
+                                                <td rowspan="2" style="" class="cel_type01">
+                                                    <span>원룸</span>
+                                                </td>
+                                                <td colspan="2" style="" class="cel_type01">
+                                                    <span>주거공용 면적</span>
+                                                </td>
+                                                <td style="" class="cel_type01">
+                                                    <span>그 밖의 공용면적(지하주차장 면적을 포함한다)</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td style="" class="cel_type01">
+                                                    <span>18.24</span>
+                                                </td>
+                                                <td colspan="2" style="">
+                                                    <span>&nbsp;</span>
+                                                </td>
+                                                <td style="" class="cel_type01">
+                                                    <span>&nbsp;</span>
+                                                </td>
+                                                <td style="" class="cel_type01">
+                                                    <span>18.24㎡</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="" class="cel_type01">
+                                                    <span>민간임대주택의 종류</span>
+                                                </th>
+                                                <td colspan="7" style="">
+                                                    <span>민간건설임대주택[ ], 민간매입임대주택[☑]</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="" class="cel_type01">
+                                                    <span>민간임대주택에 딸린 부대시설&middot; 복리시설의 종류</span>
+                                                </th>
+                                                <td colspan="7" style="">
+                                                    <span>TV, 세탁기, 전자렌지, 냉장고, 에어컨, 가스렌지</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="" class="cel_type01">
+                                                    <span>담보물권 설정 여부</span>
+                                                </th>
+                                                <td colspan="4" style="">
+                                                    <span>없음[ ]</span></br>
+                                                    <span>&nbsp;</span></br>
+                                                    <span>&nbsp;</span></br>
+                                                    <span>&nbsp;</span>
+                                                </td>
+                                                <td colspan="3" style="">
+                                                    <span>있음[☑]</span></br>
+                                                    <span>-담보물권의 종류:근저당권</span></br>
+                                                    <span>(논산농협161336-0000196)</span></br>
+                                                    <span>-설정금액:금46,800,000원</span></br>
+                                                    <span>-설정일자 :2013. 5. 30</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <p dir="ltr" style=""><span style="font-size:9pt;">※ 전용면적, 주거공용면적 및 그 밖의 공용면적의 구분은 「주택공급에 관한 규칙」 제21조제5항에 따른다.</span>
+                                    </p>
+                                </div> <!-- div id="page1" -->
+                                <div id="page2">
+                                    <p dir="ltr" style=""><span>5. 계약조건</span></p>
+
+                                    <p dir="ltr" class="provision"><span class="provision">제1조(임대보증금&middot;임대료 및 임대차 계약기간) ① &quot;갑&quot;은 위 표시주택의 임대보증금, 임대료 및 임대차 계약기간을 아래와 같이 정하여 &quot;을&quot;에게 임대한다.</span>
+                                    </p>
+                                    <div align="left" dir="ltr" style="margin-left:0pt;">
+
+                                        <table class="table_type2">
+                                            <caption></caption>
+                                            <colgroup>
+                                                <col width="*"/>
+                                                <col width="40%"/>
+                                                <col width="40%"/>
+                                            </colgroup>
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    <span style="font-weight:700;">구분</span>
+                                                </th>
+                                                <th>
+                                                    <span style="font-weight:700;">임대보증금</span>
+                                                </th>
+                                                <th>
+                                                    <span style="font-weight:700;">임대료</span>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <th>
+                                                    <span style="font-weight:700;">금액</span>
+                                                </th>
+                                                <td>
+                                                    <span style="color:#315f97;">금{{contract.deposit}}원</span>
+                                                </td>
+                                                <td>
+                                                    <span style="color:#315f97;">금{{contract.monthlyRent}}원</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <span style="font-weight:700;">임대차 계약기간</span>
+                                                </th>
+                                                <td colspan="2">
+                                                    <span style="color:#315f97;">{{contract.contractPeriodStart}} ~ {{contract.contractPeriodEnd}}</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <p dir="ltr" class="aticle"><span>② &quot;을&quot;은 제1항의 임대보증금을 아래와 같이 &quot;갑&quot;에게 지불하기로 한다.</span></p>
+                                    <div align="left" dir="ltr" style="margin-left:0pt;">
+                                        <table class="table_type2">
+                                            <caption></caption>
+                                            <colgroup>
+                                                <col width="*"/>
+                                                <col width="80%"/>
+                                            </colgroup>
+                                            <tbody>
+                                            <tr>
+                                                <th>
+                                                    <span style="font-weight:700;">계약금</span>
+                                                </th>
+                                                <td>
+                                                    <span style="color:#315f97;">금{{contract.earnest}}원</span><span>&nbsp;정은 계약 시({{contract.earnestPaymentDate}})에 지불&nbsp;</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <span style="font-weight:700;">중도금</span>
+                                                </th>
+                                                <td>
+                                                    <span style="color:#315f97;">금{{contract.secondPayment}}원</span><span>&nbsp;정은</span><span
+                                                        style="color:#315f97;">{{contract.secondPaymentDate}}</span><span>에 지불</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <span style="font-weight:700;">잔 금</span>
+                                                </th>
+                                                <td>
+                                                    <span style="color:#315f97;">금{{contract.balance}}원</span><span>&nbsp;정은&nbsp;</span><span
+                                                        style="color:#315f97;">{{contract.balancePaymentDate}}</span><span>에 지불</span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <p dir="ltr" class="aticle"><span>③ &quot;을&quot;은 제1항과 제2항에 따른 임대보증금을 이자 없이 &quot;갑&quot;에게 예치하여야 하며, 제2항의 지불기한까지 내지 않는 경우에는 연체이율(연</span><span
+                                            style="color:#315f97;">&nbsp;25 %</span><span style="color:#000000;">)을 적용하여 계산한 연체료를 가산하여 내야 한다. 이 경우 연체이율은 「은행법」에 따른 은행으로서 가계자금 대출시장의 점유율이 최상위인 금융기관의 가계자금 대출이자율과 연체가산율을 합산한 이율을 고려하여 결정한다.</span>
+                                    </p>
+
+                                    <p dir="ltr" class="aticle"><span>④ &quot;을&quot;은 당월 분 임대료를&nbsp;</span><span style="color:#315f97;">매달 {{contract.rentPaymentDate}} 일까지</span><span>&nbsp;내야 하며, 이를 내지 않는 경우에는 연체된 금액에 제3항에 따른 연체이율을 적용하여 계산한 연체료를 더하여 내야 한다.</span>
+                                    </p>
+
+                                    <p dir="ltr" class="provision"><span class="provision">제2조(민간임대주택의 입주일) 위 민간임대주택의 입주일은</span><span
+                                            style="color:#315f97;">&nbsp;{{contract.contractPeriodStart}} 부터 {{contract.contractPeriodEnd}} 까지</span><span>로 한다.</span></p>
+
+                                    <p dir="ltr" class="provision"><span class="provision">제3조(임대 조건 등의 변경) &quot;갑&quot;과 &quot;을&quot;은 다음 각 호의 어느 하나에 해당할 경우에는 임대보증금, 임대료, 관리비, 사용료 또는 제납입금을 조정할 수 있다. 다만, 임대보증금과 임대료(이하 &quot;차임등&quot;이라 한다)의 조정은 「민간임대주택에 관한 특별법」 및 「주택 임대차보호법」에서 정하는 바를 위반하여서는 안 되고, 「민간임대주택에 관한 특별법」 제44조제2항에 따라 임대료 증액청구는 연 5퍼센트의 범위에서 주거비 물가지수, 인근 지역의 임대료 변동률 등을 고려하여야 하며 임대차계약 또는 임대료 증액이 있은 후 1년 이내에는 그 임대료를 증액하지 못한다.</span>
+                                    </p>
+
+                                    <ol>
+                                        <li dir="ltr" class="issue_no"><span>물가, 그 밖의 경제적 여건의 변동이 있을 때</span></li>
+                                        <li dir="ltr" class="issue_no"><span>&quot;갑&quot;이 임대하는 주택 상호간 또는 인근 유사지역의 민간임대주택 간에 임대조건의 균형상 조정할 필요가 있을 때</span>
+                                        </li>
+                                        <li dir="ltr" class="issue_no"><span>민간임대주택과 부대시설 및 부지의 가격에 현저한 변동이 있을 때</span></li>
+                                    </ol>
+                                </div> <!-- div id="page2" -->
+                                <div id="page3">
+                                    <p dir="ltr" class="provision"><span class="provision">제4조(&quot;을&quot;의 금지행위) &quot;을&quot;은 다음 각 호의 어느 하나에 행위를 해서는 안 된다.</span>
+                                    </p>
+
+                                    <ol>
+                                        <li dir="ltr" class="issue_no"><span>임대사업자의 동의 없이 무단으로 임차권을 양도하거나 민간임대주택을 타인에게 전대하는 행위</span></li>
+                                        <li dir="ltr" class="issue_no">
+                                            <span>민간임대주택 및 그 부대시설을 개축&middot;증축 또는 변경하거나 본래의 용도가 아닌 용도로 사용하는 행위</span></li>
+                                        <li dir="ltr" class="issue_no"><span>민간임대주택 및 그 부대시설을 파손 또는 멸실하는 행위</span></li>
+                                        <li dir="ltr" class="issue_no"><span>민간임대주택 및 그 부대시설의 유지&middot;관리를 위하여 &quot;갑&quot;과 &quot;을&quot;이 합의한 사항을 위반하는 행위</span>
+                                        </li>
+                                    </ol>
+
+                                    <p dir="ltr" class="provision"><span class="provision">제5조(&quot;을&quot;의 의무) &quot;을&quot;은 위 주택을 선량한 관리자로서 유지&middot;관리하여야 한다.</span>
+                                    </p>
+
+                                    <p dir="ltr" class="provision"><span class="provision">제6조(보수의 한계) ① 위 주택의 보수 및 수선은 &quot;갑&quot;의 부담으로 하되, 위 주택의 전용부분과 그 내부시설물을 &quot;을&quot;이 파손하거나 멸실한 부분 또는 소모성 자재(「주택법 시행규칙」 별표 5의 장기수선계획의 수립기준상 수선주기가 6년 이내인 자재를 말한다)의 보수주기에서의 보수 또는 수선은 &quot;을&quot;의 부담으로 한다.</span>
+                                    </p>
+
+                                    <p dir="ltr" class="aticle"><span>② 제1항에 따른 소모성 자재 및 제1항에 따른 소모성 자재 외의 소모성 자재의 종류와 그 종류별 보수주기는 제12조에 따른 특약으로 따로 정할 수 있다. 다만, 본문에도 불구하고 벽지&middot;장판&middot;전등기구 및 콘센트의 보수주기는 다음 각 호와 같다.</span>
+                                    </p>
+
+                                    <ol>
+                                        <li dir="ltr" class="issue_no"><span>벽지 및 장판: 10년(변색&middot;훼손&middot;오염 등이 심한 경우에는 6년으로 하며, 적치물의 제거에 &quot;을&quot;이 협조한 경우만 해당한다)</span>
+                                        </li>
+                                        <li dir="ltr" class="issue_no">
+                                            <span>전등기구 및 콘센트: 10년. 다만, 훼손 등을 이유로 안전상의 위험이 우려되는 경우에는 조기 교체하여야 한다.</span></li>
+                                    </ol>
+
+                                    <p dir="ltr" class="provision"><span class="provision">제7조(임대차계약의 해제 및 해지) &quot;을&quot;이 다음 각 호의 어느 하나에 해당하는 행위를 한 경우에는 &quot;갑&quot;은 이 계약을 해제 또는 해지하거나 임대차계약의 갱신을 거절할 수 있다.</span>
+                                    </p>
+                                    <ol>
+                                        <li dir="ltr" class="issue_no"><span>거짓이나 그 밖의 부정한 방법으로 민간임대주택을 임대받은 때</span></li>
+
+                                        <li dir="ltr" class="issue_no"><span>법 제43조제1항 각 호의 시점으로부터 3개월 이내에 입주하지 않은 때. 다만, &quot;갑&quot;의 귀책사유로 입주가 지연된 때에는 그렇지 않다.</span>
+                                        </li>
+
+                                        <li dir="ltr" class="issue_no"><span>임대료를 3개월 이상 연속하여 연체한 때</span></li>
+
+                                        <li dir="ltr" class="issue_no"><span>민간임대주택 및 그 부대시설을 &quot;갑&quot;의 동의를 받지 않고 개축&middot;증축 또는 변경하거나 본래의 용도가 아닌 용도로 사용한 때</span>
+                                        </li>
+
+                                        <li dir="ltr" class="issue_no"><span>민간임대주택 및 그 부대시설을 고의로 파손 또는 멸실한 때</span></li>
+
+                                        <li dir="ltr" class="issue_no"><span>그 밖에 이 표준임대차계약서상의 의무를 위반한 때</span></li>
+                                    </ol>
+
+                                    <p dir="ltr" class="provision"><span class="provision">제8조(임대보증금의 반환) ① &quot;을&quot;이 &quot;갑&quot;에게 예치한 임대보증금은 이 계약이 끝나거나 해제 또는 해지되어 &quot;을&quot;이 &quot;갑&quot;에게 주택을 명도함과 동시에 반환한다.</span>
+                                    </p>
+
+                                    <p dir="ltr" class="aticle"><span>② 제1항에 따라 반환할 경우 &quot;갑&quot;은 주택 및 내부 일체에 대한 점검을 실시한 후 &quot;을&quot;이 &quot;갑&quot;에게 내야 할 임대료, 관리비 등 제반 납부액과 제6조제1항에 따른 &quot;을&quot;의 수선유지 불이행에 따른 보수비 및 제11조에 따른 특약으로 정하는 위약금, 불법거주에 따른 배상금 또는 손해금 등 &quot;을&quot;의 채무를 임대보증금에서 우선 공제하고 그 잔액을 반환한다.</span>
+                                    </p>
+
+                                    <p dir="ltr" class="aticle"><span>③ &quot;을&quot;은 위 주택을 &quot;갑&quot;에게 명도할 때까지 사용한 전기&middot;수도&middot;가스 등의 사용료(납부시효가 끝나지 아니한 것을 말한다)지불 영수증을 &quot;갑&quot;에게 제시 또는 예치하여야 한다.</span>
+                                    </p>
+
+                                    <p dir="ltr" class="provision"><span class="provision">제9조(민간임대주택의 양도) &quot;갑&quot;이 「민간임대주택에 관한 특별법」 제43조제2항에 따라 위 주택을 다른 임대사업자(이하 &quot;병&quot;이라 한다)에게 양도하는 경우에는 &quot;병&quot;과의 매매계약서에서 &quot;갑&quot;의 임대사업자로서의 지위를 &quot;병&quot;이 승계한다는 뜻을 명시한다.</span>
+                                    </p>
+
+                                    <p dir="ltr" class="provision"><span class="provision">제10조(소송) 이 계약에 관한 소송의 관할 법원은 &quot;갑&quot;과 &quot;을&quot;이 합의하여 결정하는 관할법원으로 하며, &quot;갑&quot;과 &quot;을&quot; 간에 합의가 이루어지지 않은 경우에는 위 주택소재지를 관할하는 법원으로 한다.</span>
+                                    </p>
+                                </div> <!-- div id="page3" -->
+                                <div id="page4">
+                                    <p dir="ltr" class="provision"><span class="provision">제11조(중개대상물의 확인&middot;설명) 개업공인중개사가 임대차계약서를 작성하는 경우에는 중개대상물확인&middot;설명서를 작성하고, 업무보증 관계증서(공제증서 등) 사본을 첨부하여 임대차계약을 체결할 때 &quot;갑&quot;과 &quot;을&quot;에게 교부한다.</span>
+                                    </p>
+
+                                    <p dir="ltr" class="provision"><span class="provision">제12조(특약) &quot;갑&quot;과 &quot;을&quot;은 제1조부터 제13조까지에서 규정한 사항 외에 필요한 사항에 대하여는 따로 특약을 정할 수 있다. 다만, 특약의 내용은 「약관의 규제에 관한 법률」을 위반해서는 안 된다.</span>
+                                    </p>
+
+                                    <div id="special_provision" style="border-top: 1px solid #5d5d5d;">
+                                        <h2><span>[특약사항]</span></h2>
+
+                                        <ol>
+                                            <li dir="ltr" class="issue_no"><span>현시설 상태의 임대차 계약이며, 소유권자 변동시 계약서를 다시 쓴다.</span></li>
+                                            <li dir="ltr" class="issue_no"><span>임대목적물(옵션물품포함) 파손시 원상복구 한다.</span></span></li>
+                                            <li dir="ltr" class="issue_no"><span>옵션물품은 벽걸이TV, 드럼세탁기, 전자렌지, 냉장고, 에어컨, 가스렌지 이다.</span></span></li>
+                                            <li dir="ltr" class="issue_no"><span><span>기본관리비는 월&nbsp;</span><span
+                                                    style="color: rgb(49, 95, 151);">사만이천원(42,000원)</span><span>이고, 내용은 인터넷, TV, 공용전기, 공용청소, 수도세 포함된 금액이며, 매월 말일 까지 지정된&nbsp;</span><span
+                                                    style="color: rgb(49, 95, 151);">관리계좌(농협 신종분 351-0624-3944-73)</span><span>에 입금한다. &nbsp;(관리인 연락처 : 010-9091-9333)</span></span>
+                                            </li>
+                                            <li dir="ltr" class="issue_no"><span>도시가스, 전기는 사용한 만큼 임차인이 납부하기로 한다.</span></li>
+                                            <li dir="ltr" class="issue_no"><span>본 계약에서 정하지 않은 사항은 민법 및 주택임대차보호법, 그 밖의 부동산 일반관례에 따른다.</span>
+                                            </li>
+                                            <li dir="ltr" class="issue_no"><span>이사시 보증금에서&nbsp;</span><span style="color: rgb(49, 95, 151);">청소비(7만원)</span><span>를 공제하고 반환하기로 한다.</span>
+                                            </li>
+                                            <li dir="ltr" class="issue_no"><span>보증금과 임대료 납부계좌번호 :&nbsp;</span><span
+                                                    style="color: rgb(49, 95, 151);">우리은행 097-011045-12-001 김경자</span></span></li>
+                                            <li dir="ltr" class="issue_no"><span style="color: rgb(49, 95, 151);">{{contract.specialContract}}</span>
+                                            </li>
+                                        </ol>
+                                    </div>
+                                    <blockquote style="border-width: 1px;border-type: solid;border-color: #25225;">
+                                        <p dir="ltr" style="margin-top:2pt;margin-bottom:2pt;"><span
+                                                style=""><strong>◈ 주택월세 소득공제 안내</strong></span></p>
+
+                                        <p dir="ltr"
+                                           style="line-height: 1.38; margin-top: 2pt; margin-bottom: 2pt; padding: 0pt 0pt 0pt 5pt; text-align: left;">
+                                            <span style="font-size:9pt;">근로소득이 있는 거주자(일용근로자는 제외한다)는 「소득세법」 및 「조세특례제한법」에 따라 주택월세에 대한 소득공제를 받을 수 있으며, 자세한 사항은 국세청 콜센터(국번 없이 126)로 문의하시기 바랍니다.</span>
+                                        </p>
+                                    </blockquote>
+
+                                    <p>&nbsp;</p>
+                                </div> <!-- div id="page4" -->
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">닫 기</button>
+                            <button type="button" class="btn btn-primary" onClick="fnPrint();">인쇄하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'Contract-print',
+        props: ['contractPrintData'],
+        data: function () {
+          return { contract: this.contractPrintData }
+        },
+        methods: {
+          function fnPrint() {
+              document.body.innerHTML = contents.innerHTML;
+              //factory.printing.header = "";   //머릿말 설정
+              //factory.printing.footer = "";   //꼬릿말 설정
+              //factory.printing.portrait = true;  //출력방향 설정: true-가로, false-세로
+              //factory.printing.leftMargin = 0.5;  //왼쪽 여백 설정
+              //factory.printing.topMargin = 5;  //위쪽 여백 설정
+              //factory.printing.rightMargin = 0.5;  //오른쪽 여백 설정
+              //factory.printing.bottomMargin = 0.5;  //아래쪽 여백 설정
+              //factory.printing.printBackground = true; //배경이미지 출력 설정:라이센스 필요
+              //factory.printing.Print(true);   //출력하기
+
+              window.print();
+              return false;
+          };
+
+        }
+      };
+
+
+/*
+        var contract=[];
+
+        function findContract(contractId) {
+          return contracts[findContractKey(contractId)];
+        };
+
+        function findContractKey(contractId) {
+          for (var key = 0; key < contracts.length; key++) {
+            if (contracts[key].id == contractId) {
+              return key;
+            }
+          }
+        };
+
+        function contractfindById(id, fn) {
+            axios
+              .get('/api/contracts/' + id)
+              .then(response => fn(response))
+              .catch(error => console.log(error))
+          };
+
+        var app = new Vue({
+          el: '#main',
+            data: function () {
+            return { contract: contractfindById(this.$route.params.contract_id) };
+            },
+            methods: {
+                printContract: function () {
+
+
+                }
+            }
+        })
+*/
+</script>
+<style scoped>
+	h1 {
+		font-size: 1.5em;
+		font-weight: 700;
+		text-align: center;
+	}
+	h2 {
+		font-size: 1.2em;
+		font-weight: 700;
+		text-align: left;
+		margin-top: 10pt;
+	}
+	body {
+		font-size: 0.9em;
+		font-weight:400;
+		color: #000000;
+		font-family:Lato,sans-serif;
+		background-color:transparent;
+		font-style:normal;
+		font-variant:normal;
+		text-decoration:none;
+		vertical-align:baseline;
+	}
+	.provision {
+		font-weight:400;
+		font-style:normal;
+	}
+	p.provision {
+		text-indent: -20pt;
+		margin-right: 2pt;
+
+		padding: 0pt 0pt 0pt 20pt;
+	}
+	p.issue_no {
+		text-indent: -20pt;
+		margin-right: 2pt;
+
+		padding: 0pt 0pt 0pt 20pt;
+	}
+	.issue_no {
+		padding: 0pt 0pt 0pt 0pt;
+	}
+	p.aticle {
+		text-indent: -20pt;
+		margin-right: 2pt;
+
+		padding: 0pt 0pt 0pt 20pt;
+	}
+	.aticle {
+
+	}
+
+	table {
+		border-collapse:collapse;
+		empty-cells:show;
+	}
+	table.table_type1 ,.table_type2 {
+		width: 100%;
+	}
+	.table_type1 th,
+	.table_type1 td,
+	.table_type2 th,
+	.table_type2 td {
+		padding: 0.2rem;
+		vertical-align: middle;
+		border-top: 1px solid #5d5d5d;
+		border-left: 1px solid #5d5d5d;
+		border-right: 1px solid #5d5d5d;
+		border-bottom: 1px solid #5d5d5d;
+	}
+
+	.table_type1 th {
+		text-align: center;
+		font-weight:700;
+	}
+	.table_type1 td {
+		text-align: left;
+	}
+	.table_type2 th {
+		font-weight:700;
+		background-color: rgb(239, 239, 239);
+		text-align: center;
+	}
+
+	.table_type2 td {
+		text-align: left;
+	}
+	.table_type1 .cel_type01 {
+		text-align: center;
+	}
+	.table_type1 .cel_type02 {
+		text-align: left;
+	}
+	.table_type1 .cel_type03 {
+		text-align: center;
+		border-right: 0px none #5d5d5d;
+	}
+	.table_type1 .cel_type04 {
+		text-align: left;
+		border-right: 0px none #5d5d5d;
+	}
+	.text_h1 {
+		padding:0;
+	}
+	.text_h2 {
+		padding:0pt 0pt 0pt 10pt;
+	}
+	.text_c1 {
+
+	}
+	@media print {
+		#page1 {
+		}
+		#page2 {		page-break-after: always;	}
+		#page3 {		page-break-after: always;	}
+		#page4 {
+		}
+		h1 {page-break-before: avoid;}
+	}
+	@page {
+        size:  auto;   /* auto is the initial value */
+        margin: 10mm 12mm 10mm 12mm;  /* this affects the margin in the printer settings */
+    }
+
+	</style>

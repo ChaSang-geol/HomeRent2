@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout/defaultLayout">
+
+<head>
+    <title>수입지출 관리</title>
+    <th:block th:replace="fragments/commonHead"></th:block>
+    <script>
+    /* globals feather:false */
+    (function () {
+      feather.replace();
+    }())
+
+    // 날짜입력 (datePicker)초기화
+    initDatePicker = function (controlId) {
+      var controlDate = $("#" + controlId);
+      if (controlDate.length == 0) { return; }
+
+      controlDate.datepicker({
+        assumeNearbyYear: false,
+        autoclose: true, // 자동으로 창을 닫는다
+        format: "yyyy-mm-dd", // 일자 형식
+        language: "ko", // 언어코드 ( 한국어 )
+        todayBtn: true, // 오늘 버튼
+        todayHighlight: true, // 오늘에 하이라이트
+        templates: {
+          leftArrow: '&lt;',
+          rightArrow: '&gt;'
+        }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징
+        clearBtn: false // 닫기 버튼
+      });
+
+    }
+    // 날짜 입력 달력을 보여준다.
+    showDatePickerCalendar = function (_controlId) {
+      var ctrl = document.getElementById(_controlId); // 컨트롤을 찾는다.
+      if (ctrl != null) {
+        $(ctrl).datepicker('show');// 달력을 보인다.
+      }
+      //return false;
+    }
+
+    // 초기화 함수 호출 & 날짜 입력 버튼 클릭시 달력이 보이도록 한다
+    initDatePicker("add-occurrenceDate");
+	initDatePicker("edit-occurrenceDate");
+
+
+
+    </script>
+</head>
+<body>
+<th:block th:replace="fragments/commonMenu"></th:block>
+<main role="main">
+    <div class="container_A">
+        <div class="py-5 text-center">
+            <h2>수입지출 관리</h2>
+        </div>
+<!--        <main id="app">-->
+<!--            <router-view></router-view>-->
+<!--        </main>-->
+
+        <div id="incomeexpenditure-edit" style="display: none;">
+            <div class="row">
+                <div class="col-md-12 order-md-1" id="incomeexpenditureForm1">
+                    <h4 class="mb-3">수입/지출 수정</h4>
+                    <form class="needs-validation" novalidate v-on:submit.prevent="postIncomeExpenditure">
+                        <hr class="mb-4">
+                        <h5 class="mb-3">수입/지출 선택</h5>
+                        <div class="d-block my-3">
+                            <div class="custom-control custom-radio">
+                                <input id="income" name="classification" type="radio" class="custom-control-input"
+                                       checked v-model="input_classification" required>
+                                <label class="custom-control-label" for="income">수입</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="expenditure" name="classification" type="radio" class="custom-control-input"
+                                       v-model="input_classification" required>
+                                <label class="custom-control-label" for="expenditure">지출</label>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <div class="row">
+                            <div class="col-md-1 mb-3">
+                                <label for="edit-dongNumber">동</label>
+                                <input type="text" class="form-control" id="edit-dongNumber" placeholder="" value="109"
+                                       v-model="input_dongNumber" required>
+                                <div class="invalid-feedback">
+                                    동명을 입력하세요.
+                                </div>
+                            </div>
+                            <div class="col-md-1 mb-3">
+                                <label for="edit-hoNumber">호</label>
+                                <input type="text" class="form-control" id="edit-hoNumber" placeholder="" value=""
+                                       v-model="input_hoNumber" required>
+                                <div class="invalid-feedback">
+                                    호를 입력하세요.
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mb-3">
+                                <label for="edit-occurrenceDate">발생일자</label>
+                                <input type="text" class="form-control" id="edit-occurrenceDate" v-on:click="initDatePicker(this.id);"
+                                       placeholder="YYYY-MM-DD" v-model="input_occurrenceDate" required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="edit-summary">상세내역 <span class="text-muted"></span></label>
+                                <input type="text" class="form-control" id="edit-summary" placeholder="거래 내역을 입력"
+                                       v-model="input_summary">
+                            </div>
+
+                            <div class="col-md-2 mb-3">
+                                <label for="edit-correspondent">거래처</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
+                                    </div>
+                                    <input type="text" class="form-control" id="edit-correspondent" placeholder="거래처 이름"
+                                           v-model="input_correspondent" required>
+                                    <div class="invalid-feedback" style="width: 100%;">
+                                        거래처 이름을 입력하세요.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="edit-accountSubject">계정과목</label>
+                                <select class="custom-select d-block w-100" id="edit-accountSubject"
+                                        v-model="input_accountSubject">
+                                    <option disabled value="">계정과목선택</option>
+                                    <option :selected="select_accountsubject.txt === input_accountSubject"
+                                            v-bind:value="select_accountsubject.txt"
+                                            v-for="select_accountsubject in select_accountsubject">
+                                        {{ select_accountsubject.txt }}
+                                    </option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="edit-amount">금액</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">원</span>
+                                    </div>
+                                    <input type="number" class="form-control" id="edit-amount" placeholder=""
+                                           v-model="input_amount" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="add-Action">Action</label>
+                                <div class="row">
+                                    <div class="col">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <button type="button" class="btn btn-secondary" id="add-Action"><i
+                                                        data-feather="plus"></i></button>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <button type="button" class="btn btn-secondary" id="delete-Action"><i
+                                                        data-feather="minus"></i></button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <hr class="mb-4">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">저 장</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!--    테이블형 입력-->
+        <div id="main">
+            <div id="add-data" style="width: 100%;">
+                <h4 class="mb-3">수입/지출 등록</h4>
+                <hr class="mb-4">
+                <form  v-on:submit.prevent="postIncomeExpenditure">
+                <div class="btn-toolbar pb-2 mb-2 mb-md-0 justify-content-end"
+                     style="width:100%; text-align: right !important;" role="toolbar" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-secondary">줄추가</button>
+                        <button type="button" class="btn btn-outline-secondary mr-3">삭제</button>
+                    </div>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-primary" type="submit">저 장</button>
+                        <button class="btn btn-outline-secondary" type="reset">취 소</button>
+                    </div>
+                </div>
+                <div class="table-responsive" id="incomeexpenditureForm">
+
+                        <table class="table table-striped table-bordered" style="min-width:1308px;">
+                            <colgroup>
+                                <col style="width: 50px;  min-width: 50px;">
+                                <col style="width: 120px; min-width: 120px;">
+                                <col style="width: 84px;  min-width: 84px;">
+                                <col style="width: 84px;  min-width: 84px;">
+                                <col style="width: 170px; min-width: 170px;">
+                                <col style="width: auto; min-width: 300px;">
+                                <col style="width: 170px; min-width: 170px;">
+                                <col style="width: 160px; min-width: 160px;">
+                                <col style="width: 170px; min-width: 170px;">
+                            </colgroup>
+                            <thead class="thead-dark">
+                            <tr>
+                                <th style="width: 50px;  min-width: 50px;">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="allcheck">
+                                        <label class="custom-control-label" for="allcheck"></label>
+                                    </div>
+                                </th>
+                                <th style="width: 120px; min-width: 120px;">수입/지출</th>
+                                <th style="width: 84px;  min-width: 84px;">동</th>
+                                <th style="width: 84px;  min-width: 84px;">호</th>
+                                <th style="width: 170px; min-width: 170px;">발생일자</th>
+                                <th style="width: auto; min-width: 300px;">상세내역</th>
+                                <th style="width: 170px; min-width: 170px;">거래처</th>
+                                <th style="width: 160px; min-width: 160px;">계정과목</th>
+                                <th style="width: 170px; min-width: 170px;">금액</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input"
+                                               id="reqIncomOutcom">
+                                        <label class="custom-control-label" for="reqIncomOutcom"></label>
+                                        <input id="incomeexpenditureId" type="hidden" v-model="input_id">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select class="custom-select d-block w-100" id="classification"
+                                            placeholder="수입/지출 구분"
+                                            v-model="input_classification">
+                                        <option disabled value="">수입/지출선택</option>
+                                        <option :selected="select_classification.txt === input_classification"
+                                                v-bind:value="select_classification.txt"
+                                                v-for="select_classification in select_classification">{{
+                                            select_classification.txt }}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="동" id="dongNumber"
+                                           value="" v-model="input_dongNumber" required/>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="호수" id="hoNumber" value=""
+                                           v-model="input_hoNumber" required/>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control input_date" placeholder="발생일자"
+                                                     id="occurrenceDate" v-model="input_occurrenceDate" value="" required>
+                                    </div>
+                                </td>
+                                <td><input type="text" class="form-control" id="summary" placeholder="거래 내역을 입력"
+                                                 value="" v-model="input_summary"></td>
+                                <td><input type="text" class="form-control" id="correspondent"
+                                                 placeholder="거래처 이름" value=""
+                                                 v-model="input_correspondent"></td>
+                                <td>
+                                    <select class="custom-select d-block w-100"
+                                            id="accountSubject" v-model="input_accountSubject" required>
+                                        <option disabled value=null>계정과목선택</option>
+                                        <option :selected="select_accountsubject.txt === input_accountSubject"
+                                                v-bind:value="select_accountsubject.txt"
+                                                v-for="select_accountsubject in select_accountsubject">{{
+                                            select_accountsubject.txt }}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td><input type="number" class="form-control" id="amount"
+                                                          placeholder="금액" v-model="input_amount"></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <hr class="mb-4">
+                </div>
+                </form>
+                <br>
+<!--                테이블 형 수입지출내역 목록 조회-->
+                <div class="filters row">
+                    <div class="form-group col-sm-3">
+                        <input placeholder="Search" v-model="searchKey" class="form-control" id="search-element" required />
+                    </div>
+                </div>
+                <div id="list-incomeexpenditure" class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th style="width: 120px; min-width: 120px;">수입/지출</th>
+                            <th style="width: 84px;  min-width: 84px;">동</th>
+                            <th style="width: 84px;  min-width: 84px;">호</th>
+                            <th style="width: 170px; min-width: 170px;">발생일자</th>
+                            <th style="width: auto; min-width: 300px;">상세내역</th>
+                            <th style="width: 170px; min-width: 170px;">거래처</th>
+                            <th style="width: 160px; min-width: 160px;">계정과목</th>
+                            <th style="width: 170px; min-width: 170px;">금액</th>
+                            <th style="width: 180px; min-width: 180px;">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+<!--                        <tr v-for="incomeexpenditure in incomeexpenditures">-->
+                        <tr v-for="incomeexpenditure in filteredIncomeExpenditures">
+
+                            <td>{{ incomeexpenditure.classification }}</td>
+                            <td>{{ incomeexpenditure.dongNumber }}</td>
+                            <td>{{ incomeexpenditure.hoNumber }}</td>
+                            <td>{{ incomeexpenditure.occurrenceDate }}</td>
+                            <td>{{ incomeexpenditure.summary }}</td>
+                            <td>{{ incomeexpenditure.correspondent }}</td>
+                            <td>{{ incomeexpenditure.accountSubject }}</td>
+                            <td>{{ incomeexpenditure.amount }}</td>
+                            <td>
+                                <button class="btn btn-primary" v-on:click="editIncomeExpenditure(incomeexpenditure)">Edit</button>
+                                <button class="btn btn-danger" v-on:click="deleteIncomeExpenditure(incomeexpenditure)">Delete</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Footer -->
+<th:block th:replace="fragments/commonFooter"></th:block>
+<!-- 플러그인 파일들 -->
+<th:block th:replace="fragments/commonScript"></th:block>
+<!--공통스크립트 들-->
+<!--현재 페이지 사용 스크립트-->
+
+<!--<script th:src="@{/incomeexpenditure.js}"></script>-->
+<script th:src="@{/js/form-validation.js}"></script>
+<!-- Actual Vue.js script -->
+<script th:src="@{/js/incomeexpenditure.js}"></script>
+</body>
+</html>

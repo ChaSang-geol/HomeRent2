@@ -1,0 +1,11 @@
+insert into role (name) values ('ADMIN'), ('USER'), ('ROOT');
+--INSERT INTO `role`(`role_id`, `name`) VALUES ('1', 'ADMIN');
+--INSERT INTO `role`(`role_id`, `name`) VALUES ('2', 'USER');
+--INSERT INTO `role`(`role_id`, `name`) VALUES ('3', 'ROOT');
+--INSERT INTO `role`(`name`) VALUES ('ADMIN');
+--INSERT INTO `role`(`name`) VALUES ('USER');
+--INSERT INTO `role`(`name`) VALUES ('ROOT');
+INSERT INTO `user`(`user_id`, `password`, `user_name`, `user_status`, `role_id`) VALUES ('testUser1@naver.com', 'wa3+uIi22BGmlqQdydeNTMjsEJmPVgnz', 'testUser1', 'Y', '1');
+INSERT INTO `user`(`user_id`, `password`, `user_name`, `user_status`, `role_id`) VALUES ('testUser2@naver.com', 'bn7gNC9SEFcbStq4dDtVuw=='        , 'testUser2', 'Y', '2');
+INSERT INTO `user`(`user_id`, `password`, `user_name`, `user_status`, `role_id`) VALUES ('testUser3@naver.com', 'px9ud7xYJVB4/MW8CSH7kw=='        , 'testUser3', 'Y', '2');
+INSERT INTO `user`(`user_id`, `password`, `user_name`, `user_status`, `role_id`) VALUES ('hunipapa@nate.com', 'wa3+uIi22BGmlqQdydeNTMjsEJmPVgnz', '차상걸', 'Y', '3');
