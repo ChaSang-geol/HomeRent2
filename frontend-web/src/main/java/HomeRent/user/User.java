@@ -7,11 +7,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Table(name = "user")
@@ -20,6 +16,7 @@ import lombok.ToString;
 @EqualsAndHashCode(of = {"userId"})
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User implements Serializable {
 
     @Id
@@ -38,5 +35,13 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    public User update(String userName) {
+        this.userName = userName;
+
+        return this;
+    }
+
+
 
 }

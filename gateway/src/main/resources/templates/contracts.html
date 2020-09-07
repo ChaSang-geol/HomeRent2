@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>임대차계약관리</title>
+  <link href="/dist/css/bootstrap.min.css" rel="stylesheet" >
+  <link href="/dist/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+  <link href="/css/default.css" rel="stylesheet" />
+  <link href="/products.css" rel="stylesheet" />
+
+</head>
+
+<body>
+  <div class="container">
+    <h1>임대차 계약정보 관리</h1>
+    <main id="app">
+      <router-view></router-view>
+    </main>
+  </div>
+
+  <template id="contract">
+    <div>
+      <h2>{{ contract.tenant.name }}</h2>
+      <b>동호수: </b>
+      <div>{{ contract.hoNumber }}</div>
+      <b>계약기간:</b>
+      <div>{{ contract.contractPeriodStart }}~{{ contract.contractPeriodEnd }}<span class="glyphicon "></span></div>
+      <br />
+      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+      <a>
+        <router-link to="/">목록</router-link>
+      </a>
+    </div>
+  </template>
+
+  <template id="contract-list">
+    <div>
+      <div class="actions">
+        <a class="btn btn-default">
+          <router-link :to="{path: '/add-contract'}">
+            <span class="glyphicon glyphicon-plus"></span>
+            계약정보 등록
+          </router-link>
+        </a>
+      </div>
+      <div class="filters row">
+        <div class="form-group col-sm-3">
+          <input placeholder="Search" v-model="searchKey" class="form-control" id="search-element" required />
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th>Name</th>
+              <th>동호수</th>
+              <th>계약기간</th>
+              <th class="col-sm-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="contract in filteredContracts">
+              <!-- tr v-for="contract in contracts" -->
+              <!-- tr v-for="contract in contracts | filterBy searchKey in 'name'" -->
+              <td>
+                <a>
+                  <router-link :to="{name: 'contract', params: {contract_id: contract.id}}">{{ contract.tenant.name }}
+                  </router-link>
+                </a>
+              </td>
+              <td>{{ contract.dongNumber }}동/{{ contract.hoNumber }}호</td>
+              <td>
+                {{ contract.contractPeriodStart }}~{{ contract.contractPeriodEnd }}
+                <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+              </td>
+              <td>
+                <a class="btn btn-primary">
+                  <router-link :to="{name: 'contract-edit', params: {contract_id: contract.id}}">수정</router-link>
+                </a>
+                <a class="btn btn-danger btn-xs">
+                  <router-link :to="{name: 'contract-delete', params: {contract_id: contract.id}}">삭제</router-link>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </template>
+
+
+  <template id="add-contract">
+    <div>
+      <h2>계약정보 등록</h2>
+      <hr>
+      <form @submit="createContract">
+        <div class="form-row">
+          <div class="col">
+            <label for="add-contractYear">연도</label>
+            <input class="form-control" id="add-contractYear" v-model="contract.contractYear" required />
+          </div>
+          <div class="col">
+            <label for="add-contractNumber">계약번호</label>
+            <input class="form-control" id="add-contractNumber" v-model="contract.contractNumber" />
+          </div>
+          <div class="col">
+            <label for="add-contractDate">계약일자</label>
+            <input class="form-control" id="add-contractDate" v-model="contract.contractDate" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="add-dongNumber">동</label>
+            <div class="input-group">
+            <input class="form-control" id="add-dongNumber" v-model="contract.dongNumber" required placeholder="동" />
+            <div class="input-group-append"><span class="input-group-text">동</span></div>
+            </div>
+          </div>
+          <div class="col">
+            <label for="add-hoNumber">호수</label>
+            <div class="input-group">
+            <input class="form-control" id="add-hoNumber" v-model="contract.hoNumber" required placeholder="호" />
+            <div class="input-group-append"><span class="input-group-text">호</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="add-rentalType">전/월세 구분</label>
+          <select class="form-control" id="add-rentalType" v-model="contract.rentalType" required />
+          <option value="월세" selected>월세</option>
+          <option value="전세">전세</option>
+          </select>
+        </div>
+        <h2 style="display:none;">임차인 정보</h2>
+        <hr>
+        <div class="form-row">
+          <div class="col">
+            <label for="add-name">이름</label>
+            <input class="form-control" id="add-name" v-model="contract.tenant.name" required />
+          </div>
+          <div class="col">
+            <label for="add-phoneNumber">전화번호</label>
+            <input class="form-control" id="add-phoneNumber" v-model="contract.tenant.phoneNumber" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="add-address">주소</label>
+          <input class="form-control" id="add-address" v-model="contract.tenant.address" />
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="add-birthDate">생년월일</label>
+            <input type="text" class="form-control" id="add-birthDate" v-model="contract.tenant.birthDate" />
+          </div>
+          <div class="col">
+            <label for="add-registrationNumber">등록번호(뒤)</label>
+            <input type="text" class="form-control" id="add-registrationNumber"
+              v-model="contract.tenant.registrationNumber" />
+          </div>
+        </div>
+        <h2 style="display:none;">계약 상세 정보</h2>
+        <hr>
+        <div class="form-group">
+          <label for="add-contractPeriodStart">계약기간(임차기간)</label>
+          <div class="form-row">
+            <div class="col">
+              <input class="form-control" id="add-contractPeriodStart" v-model="contract.contractPeriodStart"
+                placeholder="시작일자" />
+            </div>
+            <div class="col">
+              <input class="form-control" id="add-contractPeriodEnd" v-model="contract.contractPeriodEnd"
+                placeholder="종료일자" />
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="add-deposit">보증금, <span class="glyphicon">(원)</span></label>
+            <input type="number" class="form-control" id="add-deposit" v-model="contract.deposit" />
+          </div>
+          <div class="col">
+            <label for="add-monthlyRent">임차료(월세), <span class="glyphicon">(원)</span></label>
+            <input type="number" class="form-control" id="add-monthlyRent" v-model="contract.monthlyRent" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="add-earnest">계약금, <span class="glyphicon">(원)</span></label>
+            <input type="number" class="form-control" id="add-earnest" v-model="contract.earnest" />
+          </div>
+          <div class="col">
+            <label for="add-earnestPaymentDate">계약금납부일</label>
+            <input class="form-control" id="add-earnestPaymentDate" v-model="contract.earnestPaymentDate" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="add-secondPayment">중도금, <span class="glyphicon">(원)</span></label>
+            <input type="number" class="form-control" id="add-secondPayment" v-model="contract.secondPayment" />
+          </div>
+          <div class="col">
+            <label for="add-secondPaymentDate">중도금납부일</label>
+            <input class="form-control" id="add-secondPaymentDate" v-model="contract.secondPaymentDate" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="add-balance">잔금, <span class="glyphicon">(원)</span></label>
+            <input type="number" class="form-control" id="add-balance" v-model="contract.balance" />
+          </div>
+          <div class="col">
+            <label for="add-balancePaymentDate">잔금납부일</label>
+            <input class="form-control" id="add-balancePaymentDate" v-model="contract.balancePaymentDate" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="add-rentPaymentDate">임차료(월세) 납부일</label>
+          <input class="form-control" id="add-rentPaymentDate" v-model="contract.rentPaymentDate" />
+        </div>
+
+        <div class="form-group">
+          <label for="add-specialContract">특약사항</label>
+          <textarea class="form-control" id="add-specialContract" rows="10"
+            v-model="contract.specialContract"></textarea>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">저장</button>
+        <a class="btn btn-default">
+          <router-link to="/">취소</router-link>
+        </a>
+      </form>
+    </div>
+  </template>
+
+  <template id="contract-edit">
+    <div>
+      <h2>계약정보 수정</h2>
+      <form @submit="updateContract">
+        <div class="form-row">
+          <div class="col">
+            <label for="edit-contractYear">연도</label>
+            <input class="form-control" id="edit-contractYear" v-model="contract.contractYear" required />
+          </div>
+          <div class="col">
+            <label for="edit-contractNumber">계약번호</label>
+            <input class="form-control" id="edit-contractNumber" v-model="contract.contractNumber" />
+          </div>
+          <div class="col">
+            <label for="edit-contractDate">계약일자</label>
+            <input class="form-control" id="edit-contractDate" v-model="contract.contractDate" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="edit-dongNumber">동</label>
+            <input class="form-control" id="edit-dongNumber" v-model="contract.dongNumber" required placeholder="동" />
+          </div>
+          <div class="col">
+            <label for="edit-hoNumber">호수</label>
+            <input class="form-control" id="edit-hoNumber" v-model="contract.hoNumber" required placeholder="호" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="edit-rentalType">전/월세 구분</label>
+          <select class="form-control" id="edit-rentalType" v-model="contract.rentalType" required />
+          <option value="월세" selected>월세</option>
+          <option value="전세">전세</option>
+          </select>
+        </div>
+        <h2 style="display:none;">임차인 정보</h2>
+        <hr>
+        <div class="form-row">
+          <div class="col">
+            <label for="edit-name">이름</label>
+            <input class="form-control" id="edit-name" v-model="contract.tenant.name" required />
+          </div>
+          <div class="form-row">
+            <label for="edit-phoneNumber">전화번호</label>
+            <input class="form-control" id="edit-phoneNumber" v-model="contract.tenant.phoneNumber" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="edit-address">주소</label>
+          <input class="form-control" id="edit-address" v-model="contract.tenant.address" />
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="edit-birthDate">생년월일</label>
+            <input type="text" class="form-control" id="edit-birthDate" v-model="contract.tenant.birthDate" />
+          </div>
+          <div class="col">
+            <label for="edit-registrationNumber">등록번호(뒤)</label>
+            <input type="text" class="form-control" id="edit-registrationNumber"
+              v-model="contract.tenant.registrationNumber" />
+          </div>
+        </div>
+        <h2 style="display:none;">계약 상세 정보</h2>
+        <hr>
+        <div class="form-group">
+          <label for="edit-contractPeriodStart">계약기간(임차기간)</label>
+          <div class="form-row">
+            <div class="col">
+              <input class="form-control" id="edit-contractPeriodStart" v-model="contract.contractPeriodStart"
+                placeholder="시작일자" />
+            </div>
+            <div class="col">
+              <input class="form-control" id="edit-contractPeriodEnd" v-model="contract.contractPeriodEnd"
+                placeholder="종료일자" />
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="edit-deposit">보증금, <span class="glyphicon">(원)</span></label>
+            <input type="number" class="form-control" id="edit-deposit" v-model="contract.deposit" />
+          </div>
+          <div class="col">
+            <label for="edit-monthlyRent">임차료(월세), <span class="glyphicon">(원)</span></label>
+            <input type="number" class="form-control" id="edit-monthlyRent" v-model="contract.monthlyRent" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="edit-earnest">계약금, <span class="glyphicon">(원)</span></label>
+            <input type="number" class="form-control" id="edit-earnest" v-model="contract.earnest" />
+          </div>
+          <div class="col">
+            <label for="edit-earnestPaymentDate">계약금납부일</label>
+            <input class="form-control" id="edit-earnestPaymentDate" v-model="contract.earnestPaymentDate" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="edit-secondPayment">중도금, <span class="glyphicon">(원)</span></label>
+            <input type="number" class="form-control" id="edit-secondPayment" v-model="contract.secondPayment" />
+          </div>
+          <div class="col">
+            <label for="edit-secondPaymentDate">중도금납부일</label>
+            <input class="form-control" id="edit-secondPaymentDate" v-model="contract.secondPaymentDate" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="edit-balance">잔금, <span class="glyphicon">(원)</span></label>
+            <input type="number" class="form-control" id="edit-balance" v-model="contract.balance" />
+          </div>
+          <div class="col">
+            <label for="edit-balancePaymentDate">잔금납부일</label>
+            <input class="form-control" id="edit-balancePaymentDate" v-model="contract.balancePaymentDate" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="edit-rentPaymentDate">임차료(월세) 납부일</label>
+          <input class="form-control" id="edit-rentPaymentDate" v-model="contract.rentPaymentDate" />
+        </div>
+
+        <div class="form-group">
+          <label for="edit-specialContract">특약사항</label>
+          <textarea class="form-control" id="edit-specialContract" rows="10"
+            v-model="contract.specialContract"></textarea>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">저장</button>
+        <a class="btn btn-default">
+          <router-link to="/">취소</router-link>
+        </a>
+      </form>
+    </div>
+  </template>
+
+  <template id="contract-delete">
+    <div>
+      <h2>Delete contract {{ contract.tenant.name }} {{ contract.hoNumber }}호 {{ contract.contractYear }}</h2>
+      <form @submit="deleteContract">
+        <p>이 계약서를 삭제하시겠습니까?</p>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a class="btn btn-default">
+          <router-link to="/">Cancel</router-link>
+        </a>
+      </form>
+    </div>
+  </template>
+  
+  <!-- 플러그인 파일들 포함 -->
+  <script src="/dist/js/vue.js"></script>
+  <script src="/dist/js/vue-router.js"></script>
+  <script src="/dist/js/axios.min.js"></script>
+  <script src="/dist/js/jquery-3.5.1.min.js"></script>
+  <script src="/dist/js/bootstrap.min.js"></script>
+  <script src="/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/dist/js/feather.min.js"></script>
+  <!-- Bootstrap datepicker 추가 : 날자 입력 컨트롤 -->
+  <script src="/dist/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+  <script src="/dist/bootstrap-datepicker/bootstrap-datepicker.ko.min.js" charset="UTF-8"></script>
+  <script src="/contracts.js"></script>
+  
+  <script>
+    /* globals feather:false */
+    (function () {
+      feather.replace()
+    }())
+
+    // 날짜입력 (datePicker)초기화 
+    initDatePicker = function (controlId) {
+      var controlDate = $("#" + controlId);
+      if (controlDate.length == 0) { return; }
+
+      controlDate.datepicker({
+        assumeNearbyYear: false,
+        autoclose: true, // 자동으로 창을 닫는다
+        format: "yyyy-mm-dd", // 일자 형식
+        language: "ko", // 언어코드 ( 한국어 )
+        todayBtn: true, // 오늘 버튼
+        todayHighlight: true, // 오늘에 하이라이트
+        templates: {
+          leftArrow: '&lt;',
+          rightArrow: '&gt;'
+        }, //다음달 이전달로 넘어가는 화살표 모양 커스텀 마이징 
+        clearBtn: false // 닫기 버튼
+      });
+
+    }
+    // 날짜 입력 달력을 보여준다.
+    showDatePickerCalendar = function (_controlId) {
+      var ctrl = document.getElementById(_controlId); // 컨트롤을 찾는다.
+      if (ctrl != null) {
+        $(ctrl).datepicker('show');// 달력을 보인다.
+      }
+      //return false;
+    }
+
+    // 초기화 함수 호출 & 날짜 입력 버튼 클릭시 달력이 보이도록 한다
+    initDatePicker("add-contractDate");
+	initDatePicker("add-contractPeriodStart");
+	initDatePicker("add-contractPeriodEnd");
+	initDatePicker("add-earnestPaymentDate");
+	initDatePicker("add-secondPaymentDate");
+	initDatePicker("add-balancePaymentDate");
+	
+	initDatePicker("edit-contractDate");
+	initDatePicker("edit-contractPeriodStart");
+	initDatePicker("edit-contractPeriodEnd");
+	initDatePicker("edit-earnestPaymentDate");
+	initDatePicker("edit-secondPaymentDate");
+	initDatePicker("edit-balancePaymentDate");
+
+    $("#btn-add-contractDate").click(function () { showDatePickerCalendar("add-contractDate"); });
+    $("#btn-edit-contractDate").click(function () { showDatePickerCalendar("edit-contractDate"); });
+
+    //  검색 팝업화면으로 이동 부분 여기에
+    function fn_goSearchPop(num) {
+
+      $('#popSearch').modal({
+        keyboard: false
+      });
+    }
+  </script>
+</body>
+
+</html>

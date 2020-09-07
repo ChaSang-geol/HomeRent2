@@ -11,7 +11,11 @@ spring:
         - id: contract
           uri: http://localhost:8081
           predicates:
-            - Path=/covenants/**/tenants/**/importExpenditures/** 
+            - Path=/api/contracts/**
+        - id: incomeexpenditure
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/incomeExpenditures/**
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -34,7 +38,11 @@ spring:
         - id: contract
           uri: http://contract:8080
           predicates:
-            - Path=/covenants/**/tenants/**/importExpenditures/** 
+            - Path=/contracts/**
+        - id: incomeexpenditure
+          uri: http://incomeexpenditure:8080
+          predicates:
+            - Path=/incomeExpenditures/**
       globalcors:
         corsConfigurations:
           '[/**]':

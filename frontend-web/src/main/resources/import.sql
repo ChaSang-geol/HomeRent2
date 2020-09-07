@@ -1,4 +1,4 @@
-insert into role (name) values ('ADMIN'), ('USER'), ('ROOT');
+insert into role (name) values ('ROLE_ADMIN'), ('ROLE_USER'), ('ROLE_ROOT');
 --INSERT INTO `role`(`role_id`, `name`) VALUES ('1', 'ADMIN');
 --INSERT INTO `role`(`role_id`, `name`) VALUES ('2', 'USER');
 --INSERT INTO `role`(`role_id`, `name`) VALUES ('3', 'ROOT');
