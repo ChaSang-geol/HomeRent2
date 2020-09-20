@@ -1,8 +1,9 @@
 /**/*.iml
 /.idea/
 /**/target/**
-/**/application-oauth.properties
+src/main/resources/application-oauth.properties
 /contract/db/devdb.mv.db
 /**/*.db
 /**/db/**
 /**/*.properties
+.gitignore

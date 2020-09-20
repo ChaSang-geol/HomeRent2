@@ -7,18 +7,18 @@ import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
 
 @Configuration
 //@EnableAutoConfiguration
+//@EnableEncryptableProperties
 public class JasyptStringEncryptConfig {
     @Bean("jasyptStringEncryptor")
     public StringEncryptor stringEncryptor(Environment environment) {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
         config.setPassword(environment.getProperty("jasypt.encryptor.password", "DefaultPassword"));
-        config.setAlgorithm("PBEWithSHA1AndDESede");
+        config.setAlgorithm("PBEWITHSHA256AND256BITAES-CBC-BC");
         config.setKeyObtentionIterations("1000");
         config.setPoolSize("1");
         config.setProvider(new BouncyCastleProvider());

@@ -1,11 +1,9 @@
 package HomeRent.user;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,11 +24,9 @@ public class UserAPI {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
-//    @Value("${my.test.encValue:}")
-//    private String testValue;
+    @Value("${my.test.encValue:}")
+    private String testValue;
 
     @GetMapping
     public Flux<User> getAllUsers() {
@@ -59,14 +55,12 @@ public class UserAPI {
             if (userDto.getUserNo() != null) {
                 user.setUserNo(userDto.getUserNo());
                 if (userDto.getPassword() != null) {
-                    //user.setPassword(userDto.getPassword());
-                    user.setPassword(passwordEncoder.encode(userDto.getPassword())); // 비밀번호 암호화
-                } else { // 비번입력값이 null 이면 기존에 있던 값 그대로 저장
+                    user.setPassword(userDto.getPassword());
+                } else { // 비번입력값이 null 이면
                     user.setPassword(userRepository.findById(userDto.getUserNo()).get().getPassword());
                 }
             } else { // 수정일 때
-                //user.setPassword(userDto.getPassword());
-                user.setPassword(passwordEncoder.encode(userDto.getPassword())); // 비밀번호 암호화
+                user.setPassword(userDto.getPassword());
             }
             user.setUserId(userDto.getUserId());
             
@@ -85,10 +79,10 @@ public class UserAPI {
         userRepository.deleteById(userNo);
     }
 
-//    @GetMapping(path = "/encValue")
-//    public Mono<String> getEncValue() {
-//        return
-//                Mono.just(testValue);
-//    }
+    @GetMapping(path = "/encValue")
+    public Mono<String> getEncValue() {
+        return
+                Mono.just(testValue);
+    }
 
 }

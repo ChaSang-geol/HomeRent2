@@ -48,7 +48,7 @@ public class OAuthAttributes {
     private RoleRepository roleRepository;
     public User toEntity() {
         Role role = new Role();
-        role = roleRepository.findByRoleName("ROLE_USER");
+        role = roleRepository.findByName("ROLE_USER");
         //Long role_id = role.getId();
         return User.builder()
                 .userName(name)

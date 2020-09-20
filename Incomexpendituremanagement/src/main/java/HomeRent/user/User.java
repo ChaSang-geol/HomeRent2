@@ -14,8 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Entity
 @Table(name = "user")
 @Data
-//@ToString(exclude = {"password"})
-//@EqualsAndHashCode(of = {"userId"})
+@ToString(exclude = {"password"})
+@EqualsAndHashCode(of = {"userId"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -27,8 +27,8 @@ public class User implements Serializable {
 
     private String userId;
 
-//    @JsonIgnore
-//    @Convert(converter = StringEncryptConverter.class)
+    @JsonIgnore
+    @Convert(converter = StringEncryptConverter.class)
     private String password;
 
     private String userName;
@@ -43,15 +43,15 @@ public class User implements Serializable {
 
         return this;
     }
-/*
+
     @Autowired
     private BCryptPasswordEncoder pwEncoder;
 
     @PrePersist
     public void onPrePersist(){
         
-        //pwEncoder = new BCryptPasswordEncoder();
+        //BCryptPasswordEncoder pwEncoder = null;
         this.setPassword(pwEncoder.encode(this.password));
     }
- */
+
 }

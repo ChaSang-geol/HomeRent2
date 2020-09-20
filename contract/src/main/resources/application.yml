@@ -43,6 +43,11 @@ spring:
 #      port: 27017
 #      host: localhost
 
+# jasypt encryptor
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+
   cloud:
 
 logging:

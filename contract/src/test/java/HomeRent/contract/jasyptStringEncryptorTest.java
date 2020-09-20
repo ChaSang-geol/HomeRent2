@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class jasyptStringEncryptorTest {
 
     @Autowired
-    private StringEncryptor jasyptStringEncryptor;
+    public  StringEncryptor jasyptStringEncryptor ;
 
     @Test
     public void _0_testInit() {
@@ -39,5 +39,13 @@ public class jasyptStringEncryptorTest {
         log.info("##### decText : {}", decText);
 
         Assertions.assertThat(decText).isEqualTo(orgText);
+
+        String str1 = "test";
+        String str2 = "1111111";
+        String str3 = "010-1234-1234";
+        System.out.println("원본 문자열 :: " + str1 + " | 암호화 문자열 :: " + jasyptStringEncryptor.encrypt(str1));
+        System.out.println("원본 문자열 :: " + str2 + " | 암호화 문자열 :: " + jasyptStringEncryptor.encrypt(str2));
+        System.out.println("원본 문자열 :: " + str3 + " | 암호화 문자열 :: " + jasyptStringEncryptor.encrypt(str3));
+
     }
 }

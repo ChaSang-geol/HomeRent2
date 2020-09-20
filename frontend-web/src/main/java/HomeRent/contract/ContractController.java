@@ -12,7 +12,8 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class ContractController {
-    private final HttpSession httpSession = null;
+    //private final HttpSession httpSession ;
+
 
     @GetMapping("/contracts")
     public String list(){
@@ -30,12 +31,14 @@ public class ContractController {
     public String index(Model model) {
         // this attribute will be available in the view index.html as a thymeleaf variable
         model.addAttribute("title", "Home Project");
-
+/*
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
 
         if(user != null){
             model.addAttribute("userName", user.getName());
         }
+
+ */
         // this just means render index.html from static/ area
         return "index";
     }
