@@ -11,7 +11,7 @@ public class EncryptTest {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         StandardPBEStringEncryptor pbeEnc = new StandardPBEStringEncryptor();
-        pbeEnc.setAlgorithm("PBEWithSHA1AndDESede");
+        pbeEnc.setAlgorithm("PBEWITHSHA256AND256BITAES-CBC-BC");
         pbeEnc.setPassword("DefaultPassword");
 
         String url = "jdbc:mysql://localhost:3306/testDB";

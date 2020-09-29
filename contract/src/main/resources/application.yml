@@ -5,7 +5,7 @@ server:
 
 spring:
   profiles: default
-  # JPA 설정
+# JPA 설정
   jpa:
     properties:
       hibernate:
@@ -15,24 +15,28 @@ spring:
     generate-ddl: true
     database-platform: org.hibernate.dialect.MySQL57Dialect
 
-  # SpringData REST의 기본 context path
+#   SpringData REST의 기본 context path
   data.rest.basePath: api
 
-  # H2 DB설정
+#   H2 DB설정
 #  datasource:
 #    url: jdbc:h2:file:./db/devdb;AUTO_SERVER=TRUE
 #    username: test
 #    password: test
 #    driver-class-name: org.h2.Driver
-  # MySQL DB설정
+#    h2:
+#      console.enabled: true
+#      console.path: /console
+
+#   MySQL DB설정
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul
-    username: test
-    password: test
+    url: jdbc:mysql://127.0.0.1:3306/home?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul
+    #    username: test
+    #    password: test
+    username: ENC(Idv0U0KIbsslp/99l3hBN887zHbbzuPCPdrDurPkt2M=)
+    password: ENC(ivMd8IXHu+N4K9zVNB3+9F2tBLd9EhlqN4/mv7/mZ68=)
     driver-class-name: com.mysql.jdbc.Driver
-#  h2:
-#    console.enabled: true
-#    console.path: /console
+
 
 #  data:
 #    mongodb:
@@ -43,12 +47,17 @@ spring:
 #      port: 27017
 #      host: localhost
 
+  cloud:
+
 # jasypt encryptor
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
-
-  cloud:
+    password: "DefaultPassword"
+my:
+  seedkey:
+    key1: ENC(lZVqIfmTZbLDi3qO3fekx8XY9mEUS3zaM5vfxViG6TBg2ZAofGfELA7y0Uhhp9rH)
+    key2: ENC(Rw4e0fCoAyvNK7SSBWolCxInzYSCwFNGv2+x/ku0Wi3uyWZDqqzGr8OtTPy+4hfP)
 
 logging:
   level:

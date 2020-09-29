@@ -1,12 +1,19 @@
 package HomeRent.util;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class Seed {
-    private static final byte[] pbszUserKey = "MySevurityKey123".getBytes();
-    private static final byte[] pbszIV      = "1234567890123456".getBytes();
+    @Value("${my.seedkey.key1:}")
+    private static String key1 ;
+    @Value("${my.seedkey.key2:}")
+    private static String key2 ;
+
+    private static final byte[] pbszUserKey = key1.getBytes();
+    private static final byte[] pbszIV      = key2.getBytes();
     private static final Charset UTF_8 = StandardCharsets.UTF_8;
 
     public static String encrypt(String plainMessage) {
