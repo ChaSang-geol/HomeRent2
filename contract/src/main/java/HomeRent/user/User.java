@@ -4,10 +4,12 @@ package HomeRent.user;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
+@Table(name="User_table")
 @NamedQuery(name = "User.findByTheUsersId", query = "from User u where u.userid = ?1")
 public class User extends AbstractPersistable<Long> {
 
