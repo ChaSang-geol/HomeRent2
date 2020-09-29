@@ -1,8 +1,12 @@
 /**/*.iml
 /.idea/
 /**/target/**
-/**/application-oauth.properties
 /contract/db/devdb.mv.db
 /**/*.db
 /**/db/**
-/**/*.properties
+**/*.properties
+/**/homerent-config.txt
+**/application-oauth.properties
+/**/application-oauth.properties
+**/homerent-config.txt
+/**/homerent-config.txt

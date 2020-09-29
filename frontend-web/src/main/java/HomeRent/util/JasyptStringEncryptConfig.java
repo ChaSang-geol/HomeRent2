@@ -18,7 +18,7 @@ public class JasyptStringEncryptConfig {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();
         config.setPassword(environment.getProperty("jasypt.encryptor.password", "DefaultPassword"));
-        config.setAlgorithm("PBEWithSHA1AndDESede");
+        config.setAlgorithm("PBEWITHSHA256AND256BITAES-CBC-BC");
         config.setKeyObtentionIterations("1000");
         config.setPoolSize("1");
         config.setProvider(new BouncyCastleProvider());

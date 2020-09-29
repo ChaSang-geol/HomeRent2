@@ -32,7 +32,7 @@ class ContractApplicationTests {
 		String str = "testString";
 		String encStr = encryptor.encrypt(str);
 		String decStr = encryptor.decrypt(encStr);
-		log.debug("str : {}, encStr : {}, decStr : {}", str, encStr, decStr);
+		log.info("str : {}, encStr : {}, decStr : {}", str, encStr, decStr);
 	}
 
 
