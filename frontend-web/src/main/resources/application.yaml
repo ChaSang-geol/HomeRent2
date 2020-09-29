@@ -20,8 +20,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/home?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul
 #    username: test
 #    password: test
-    username: ENC(Idv0U0KIbsslp/99l3hBN887zHbbzuPCPdrDurPkt2M=)
-    password: ENC(ivMd8IXHu+N4K9zVNB3+9F2tBLd9EhlqN4/mv7/mZ68=)
+    username: ENC(aHPP0gMg9XmUG9oxBGemSMxlCJNpX+0nBNj3GW/+A0M=)
+    password: ENC(oAFjo8aqcDy5Xl8bRnrLqDYU830YSuSsF+f2xB5ngPg=)
     driver-class-name: com.mysql.jdbc.Driver
 
   cloud:

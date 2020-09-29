@@ -33,8 +33,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/home?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Seoul
     #    username: test
     #    password: test
-    username: ENC(Idv0U0KIbsslp/99l3hBN887zHbbzuPCPdrDurPkt2M=)
-    password: ENC(ivMd8IXHu+N4K9zVNB3+9F2tBLd9EhlqN4/mv7/mZ68=)
+    username: ENC(aHPP0gMg9XmUG9oxBGemSMxlCJNpX+0nBNj3GW/+A0M=)
+    password: ENC(oAFjo8aqcDy5Xl8bRnrLqDYU830YSuSsF+f2xB5ngPg=)
     driver-class-name: com.mysql.jdbc.Driver
 
 
@@ -56,8 +56,8 @@ jasypt:
 #    password: "DefaultPassword"
 my:
   seedkey:
-    key1: ENC(lZVqIfmTZbLDi3qO3fekx8XY9mEUS3zaM5vfxViG6TBg2ZAofGfELA7y0Uhhp9rH)
-    key2: ENC(Rw4e0fCoAyvNK7SSBWolCxInzYSCwFNGv2+x/ku0Wi3uyWZDqqzGr8OtTPy+4hfP)
+    key1: ENC(LNpl9IYnXxAPMiABw/gnGgNM38/9RbBHdpm9wDb7mF9VxH7s94k1tQpZ1NuDY4kP)
+    key2: ENC(D1SQgtp8aJfvFVsiL3hcpuEM9pJBIQiHPEbFbg/7SlBwwwXH5dfH4V0adzW8sNcw)
 
 logging:
   level:
