@@ -53,7 +53,7 @@ spring:
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
-    password: "DefaultPassword"
+#    password: "DefaultPassword"
 my:
   seedkey:
     key1: ENC(lZVqIfmTZbLDi3qO3fekx8XY9mEUS3zaM5vfxViG6TBg2ZAofGfELA7y0Uhhp9rH)
