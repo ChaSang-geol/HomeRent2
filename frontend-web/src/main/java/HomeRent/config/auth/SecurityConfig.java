@@ -47,9 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers("/", "/users/login", "/h2-console/**").permitAll()
-                    .antMatchers("/api/**").hasRole("USER")
-                    .antMatchers("/api/**").hasRole("ADMIN")
-                    .antMatchers("/api/**").hasRole("ROOT")
+//                    .antMatchers("/api/**").hasAuthority("USER")
+//                    .antMatchers("/api/**").hasRole("ADMIN")
+//                    .antMatchers("/api/**").hasRole("ROOT")
                     .antMatchers("/users/list", "/users", "/roles").hasRole("ROOT")
                     .anyRequest().authenticated()
                 .and() // 로그인 설정
