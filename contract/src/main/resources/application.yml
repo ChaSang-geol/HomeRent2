@@ -10,12 +10,12 @@ spring:
     properties:
       hibernate:
         ddl-auto: validate
-    show_sql: true
-    format_sql: true
-    generate-ddl: true
-    database-platform: org.hibernate.dialect.MySQL57Dialect
+        show_sql: true
+        format_sql: true
+        generate-ddl: true
+        database-platform: org.hibernate.dialect.MySQL57Dialect
 
-#   SpringData REST의 기본 context path
+  #   SpringData REST의 기본 context path
   data.rest.basePath: api
 
 #   H2 DB설정
@@ -35,10 +35,11 @@ spring:
     #    password: test
     username: ENC(aHPP0gMg9XmUG9oxBGemSMxlCJNpX+0nBNj3GW/+A0M=)
     password: ENC(oAFjo8aqcDy5Xl8bRnrLqDYU830YSuSsF+f2xB5ngPg=)
-    driver-class-name: com.mysql.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 
-#  data:
+  #  data:
 #    mongodb:
 #      authentication-database: admin
 #      username: jjangee
@@ -53,7 +54,7 @@ spring:
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
-#    password: "DefaultPassword"
+    password: "DefaultPassword"
 my:
   seedkey:
     key1: ENC(LNpl9IYnXxAPMiABw/gnGgNM38/9RbBHdpm9wDb7mF9VxH7s94k1tQpZ1NuDY4kP)
@@ -61,8 +62,8 @@ my:
 
 logging:
   level:
-    org.hibernate.type: trace
-    org.springframework.cloud: debug
+    org.hibernate.type: debug
+    org.springframework.cloud: info
 server:
   port: 8081
 ---

@@ -10,10 +10,10 @@ spring:
     properties:
       hibernate:
         ddl-auto: validate
-    show_sql: true
-    format_sql: true
-    generate-ddl: true
-    database-platform: org.hibernate.dialect.MySQL57Dialect
+        show_sql: true
+        format_sql: true
+        generate-ddl: true
+        database-platform: org.hibernate.dialect.MySQL57Dialect
 
 #   MySQL DB설정
   datasource:
@@ -22,7 +22,8 @@ spring:
 #    password: test
     username: ENC(aHPP0gMg9XmUG9oxBGemSMxlCJNpX+0nBNj3GW/+A0M=)
     password: ENC(oAFjo8aqcDy5Xl8bRnrLqDYU830YSuSsF+f2xB5ngPg=)
-    driver-class-name: com.mysql.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   cloud:
 # thymeleaf
@@ -42,7 +43,7 @@ jasypt:
 
 logging:
   level:
-    org.hibernate.type: trace
+    org.hibernate.type: info
     org.springframework.cloud: debug
 server:
   port: 8080
