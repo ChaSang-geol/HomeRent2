@@ -84,9 +84,20 @@ var ContractEdit = Vue.extend({
   },
   methods: {
     updateContract: function () {
-      contractService.update(this.contract.id, this.contract, r => { this.contracts = r.data; contracts = r.data });
+      contractService.update(this.contract.id, this.contract, r => {
+        this.contracts.push(r.data);
+        //this.contracts = r.data;
+        contracts = r.data });
       router.push('/');
     }
+  },
+  mounted {
+    initDatePicker("edit-contractDate");
+    initDatePicker("edit-contractPeriodStart");
+    initDatePicker("edit-contractPeriodEnd");
+    initDatePicker("edit-earnestPaymentDate");
+    initDatePicker("edit-secondPaymentDate");
+    initDatePicker("edit-balancePaymentDate");
   }
 });
 
@@ -132,11 +143,27 @@ var AddContract = Vue.extend({
   },
   methods: {
     createContract() {
-      contractService.create(this.contract, r => { this.contracts.push(r.data); contracts = r.data });
+      contractService.create(this.contract, r => {
+        this.contracts.push(r.data);
+        console.log(r.data);
+        contracts = r.data
+      });
 
       // 저장 후 다음 처리 부분 수정 필요.
-      router.push('/');
+      //router.push('/'); // 데이터가 리프레시 되지 않아서
+      location.href='/contracts';
     }
+
+  },
+  mounted() {
+    // 초기화 함수 호출 & 날짜 입력 버튼 클릭시 달력이 보이도록 한다
+    initDatePicker("add-contractDate");
+  	initDatePicker("add-contractPeriodStart");
+  	initDatePicker("add-contractPeriodEnd");
+  	initDatePicker("add-earnestPaymentDate");
+  	initDatePicker("add-secondPaymentDate");
+  	initDatePicker("add-balancePaymentDate");
+
   }
 });
 

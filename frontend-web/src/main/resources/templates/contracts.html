@@ -120,7 +120,7 @@
           </div>
           <div class="col">
             <label for="add-contractDate">계약일자</label>
-            <input class="form-control" id="add-contractDate" v-model="contract.contractDate" required />
+            <input type="date" class="form-control" id="add-contractDate" v-model="contract.contractDate" required />
 <!--            <date-picker id="add-contractDate"  name="add-contractDate" type="date-picker" v-model="contract.contractDate" ></date-picker>-->
           </div>
         </div>
@@ -180,11 +180,11 @@
           <label for="add-contractPeriodStart">계약기간(임차기간)</label>
           <div class="form-row">
             <div class="col">
-              <input class="form-control" id="add-contractPeriodStart" v-model="contract.contractPeriodStart"
+              <input type="date" class="form-control" id="add-contractPeriodStart" v-model="contract.contractPeriodStart"
                 placeholder="시작일자" />
             </div>
             <div class="col">
-              <input class="form-control" id="add-contractPeriodEnd" v-model="contract.contractPeriodEnd"
+              <input type="date" class="form-control" id="add-contractPeriodEnd" v-model="contract.contractPeriodEnd"
                 placeholder="종료일자" />
             </div>
           </div>
@@ -206,7 +206,7 @@
           </div>
           <div class="col">
             <label for="add-earnestPaymentDate">계약금납부일</label>
-            <input class="form-control" id="add-earnestPaymentDate" v-model="contract.earnestPaymentDate" />
+            <input type="date" class="form-control" id="add-earnestPaymentDate" v-model="contract.earnestPaymentDate" />
           </div>
         </div>
         <div class="form-row">
@@ -216,7 +216,7 @@
           </div>
           <div class="col">
             <label for="add-secondPaymentDate">중도금납부일</label>
-            <input class="form-control" id="add-secondPaymentDate" v-model="contract.secondPaymentDate" />
+            <input  type="date" class="form-control" id="add-secondPaymentDate" v-model="contract.secondPaymentDate" />
           </div>
         </div>
         <div class="form-row">
@@ -226,7 +226,7 @@
           </div>
           <div class="col">
             <label for="add-balancePaymentDate">잔금납부일</label>
-            <input class="form-control" id="add-balancePaymentDate" v-model="contract.balancePaymentDate" />
+            <input type="date" class="form-control" id="add-balancePaymentDate" v-model="contract.balancePaymentDate" />
           </div>
         </div>
         <div class="form-group">
@@ -263,7 +263,7 @@
           </div>
           <div class="col">
             <label for="edit-contractDate">계약일자</label>
-            <input class="form-control" id="edit-contractDate" v-model="contract.contractDate" required />
+            <input type="date" class="form-control" id="edit-contractDate" v-model="contract.contractDate" required />
           </div>
         </div>
         <div class="form-row">
@@ -316,11 +316,11 @@
           <label for="edit-contractPeriodStart">계약기간(임차기간)</label>
           <div class="form-row">
             <div class="col">
-              <input class="form-control" id="edit-contractPeriodStart" v-model="contract.contractPeriodStart"
+              <input type="date" class="form-control" id="edit-contractPeriodStart" v-model="contract.contractPeriodStart"
                 placeholder="시작일자" />
             </div>
             <div class="col">
-              <input class="form-control" id="edit-contractPeriodEnd" v-model="contract.contractPeriodEnd"
+              <input type="date" class="form-control" id="edit-contractPeriodEnd" v-model="contract.contractPeriodEnd"
                 placeholder="종료일자" />
             </div>
           </div>
@@ -342,7 +342,7 @@
           </div>
           <div class="col">
             <label for="edit-earnestPaymentDate">계약금납부일</label>
-            <input class="form-control" id="edit-earnestPaymentDate" v-model="contract.earnestPaymentDate" />
+            <input type="date" class="form-control" id="edit-earnestPaymentDate" v-model="contract.earnestPaymentDate" />
           </div>
         </div>
         <div class="form-row">
@@ -352,7 +352,7 @@
           </div>
           <div class="col">
             <label for="edit-secondPaymentDate">중도금납부일</label>
-            <input class="form-control" id="edit-secondPaymentDate" v-model="contract.secondPaymentDate" />
+            <input type="date" class="form-control" id="edit-secondPaymentDate" v-model="contract.secondPaymentDate" />
           </div>
         </div>
         <div class="form-row">
@@ -362,7 +362,7 @@
           </div>
           <div class="col">
             <label for="edit-balancePaymentDate">잔금납부일</label>
-            <input class="form-control" id="edit-balancePaymentDate" v-model="contract.balancePaymentDate" />
+            <input type="date" class="form-control" id="edit-balancePaymentDate" v-model="contract.balancePaymentDate" />
           </div>
         </div>
         <div class="form-group">
@@ -386,7 +386,7 @@
 
   <template id="contract-delete">
     <div>
-      <h2>Delete contract {{ contract.tenant.name }} {{ contract.hoNumber }}호 {{ contract.contractYear }}</h2>
+      <h2>계약서 삭제 : {{ contract.tenant.name }} {{ contract.hoNumber }}호 {{ contract.contractYear }}</h2>
       <form @submit="deleteContract">
         <p>이 계약서를 삭제하시겠습니까?</p>
         <button type="submit" class="btn btn-danger">Delete</button>
@@ -440,21 +440,6 @@
       }
       //return false;
     }
-
-    // 초기화 함수 호출 & 날짜 입력 버튼 클릭시 달력이 보이도록 한다
-    initDatePicker("add-contractDate");
-	initDatePicker("add-contractPeriodStart");
-	initDatePicker("add-contractPeriodEnd");
-	initDatePicker("add-earnestPaymentDate");
-	initDatePicker("add-secondPaymentDate");
-	initDatePicker("add-balancePaymentDate");
-
-	initDatePicker("edit-contractDate");
-	initDatePicker("edit-contractPeriodStart");
-	initDatePicker("edit-contractPeriodEnd");
-	initDatePicker("edit-earnestPaymentDate");
-	initDatePicker("edit-secondPaymentDate");
-	initDatePicker("edit-balancePaymentDate");
 
     $("#btn-add-contractDate").click(function () { showDatePickerCalendar("add-contractDate"); });
     $("#btn-edit-contractDate").click(function () { showDatePickerCalendar("edit-contractDate"); });

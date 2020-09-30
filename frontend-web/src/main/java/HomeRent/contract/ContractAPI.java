@@ -166,36 +166,46 @@ public class ContractAPI {
     public ResponseEntity contractfindById(@PathVariable Long id) {
         //Optional<Product> stock = productService.findById(id);
         String url ="http://localhost:8081/api/contracts/"+id;
-        RestTemplate restTemplate = new RestTemplate();
-        //HttpHeaders httpHeaders = new HttpHeaders();
-        //httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        Object stock = restTemplate.getForObject(url, String.class);
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            //HttpHeaders httpHeaders = new HttpHeaders();
+            //httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+            Object stock = restTemplate.getForObject(url, String.class);
 
-        if (Objects.isNull(stock)) {
-            log.error("Id " + id + " is not existed");
-            ResponseEntity.badRequest().build();
+            if (Objects.isNull(stock)) {
+                log.error("Id " + id + " is not existed");
+                ResponseEntity.badRequest().build();
+            }
+            return ResponseEntity.ok(stock);
+        } catch (Exception e) {
+            log.error("Id " + id + " is get error.");
+            log.error("### Get ID ("+id+") Error : " + e.toString());
+            return ResponseEntity.badRequest().build();
         }
-
-        return ResponseEntity.ok(stock);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Contract> update(@PathVariable Long id, @RequestBody Contract contract) {
         String url ="http://localhost:8081/api/contracts/"+id;
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-        //URI uri = URI.create().fromHttpUrl(url).build();
-        HttpEntity< Contract > entity = new HttpEntity<>(contract, httpHeaders);
-        ResponseEntity<Contract> result = restTemplate.exchange(url, HttpMethod.PUT
-                , entity, new ParameterizedTypeReference<Contract>() {
-                    @Override
-                    public Type getType() {
-                        return super.getType();
-                    }
-                });
-        log.debug("### 응답결과 PUT : " + result);
-        return result;
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+            //URI uri = URI.create().fromHttpUrl(url).build();
+            HttpEntity< Contract > entity = new HttpEntity<>(contract, httpHeaders);
+            ResponseEntity<Contract> result = restTemplate.exchange(url, HttpMethod.PUT
+                    , entity, new ParameterizedTypeReference<Contract>() {
+                        @Override
+                        public Type getType() {
+                            return super.getType();
+                        }
+                    });
+            log.debug("### Response result(PUT) : " + result);
+            return result;
+        } catch (Exception e) {
+            log.error("### Update(PUT) processing error!!");
+            return ResponseEntity.badRequest().build();
+        }
     }
 /*
     @PutMapping("/{id}")
@@ -214,10 +224,10 @@ public class ContractAPI {
         RestTemplate restTemplate = new RestTemplate();
         try {
             restTemplate.delete(url);
-            System.out.println("### 결과 : " + url + "삭제 완료");
+            log.debug("### 결과 : " + url + "삭제 완료");
         } catch (Exception e) {
-            ResponseEntity.badRequest().build();
             log.error("### 삭제결과 : " + id + " 삭제중 오류 발생!!");
+            return ResponseEntity.badRequest().build();
         }
 
         return ResponseEntity.ok().build();
