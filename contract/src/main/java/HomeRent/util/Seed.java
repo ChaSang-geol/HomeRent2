@@ -1,20 +1,50 @@
 package HomeRent.util;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+@Service
 public class Seed {
-    @Value("${my.seedkey.key1:}")
-    private static String key1 ;
-    @Value("${my.seedkey.key2:}")
-    private static String key2 ;
 
-    private static final byte[] pbszUserKey = key1.getBytes();
-    private static final byte[] pbszIV      = key2.getBytes();
+//    public static Environment environment ;
+
     private static final Charset UTF_8 = StandardCharsets.UTF_8;
+    private static  byte[] pbszUserKey;
+    private static  byte[] pbszIV ;
+
+//    private static final byte[] pbszUserKey = seedkey1.getBytes();
+//    private static final byte[] pbszIV      = seedkey2.getBytes();
+
+//    private static String seedkey1;
+    @Value("${my.seedkey.key1}")
+    public void setKey1(String key1) {
+//        this.seedkey1 = key1;
+        pbszUserKey = key1.getBytes();
+    }
+
+//    private static String seedkey2;
+    @Value("${my.seedkey.key2}")
+    public void setKey2(String key2) {
+//        this.seedkey2 = key2 ;
+        pbszIV = key2.getBytes();
+    }
+
+    public void Seed() {}
+//    @PostConstruct
+//    private void initialize() {
+//
+//        String seedkey1 = environment.getProperty("my.seedkey.key1");
+//        String seedkey2 = environment.getProperty("my.seedkey.key2");
+//        System.out.println(seedkey1 + " : ### SEED KEY");
+//        pbszUserKey = seedkey1.getBytes();
+//        pbszIV = seedkey2.getBytes();
+//    }
+
+
 
     public static String encrypt(String plainMessage) {
         Base64.Encoder encoder = Base64.getEncoder();
@@ -29,4 +59,5 @@ public class Seed {
         byte[] decryptedMessage = KISA_SEED_CBC.SEED_CBC_Decrypt(pbszUserKey, pbszIV, message, 0, message.length);
         return new String(decryptedMessage, UTF_8);
     }
+
 }
