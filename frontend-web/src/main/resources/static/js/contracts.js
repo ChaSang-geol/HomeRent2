@@ -91,7 +91,7 @@ var ContractEdit = Vue.extend({
       router.push('/');
     }
   },
-  mounted {
+  mounted() {
     initDatePicker("edit-contractDate");
     initDatePicker("edit-contractPeriodStart");
     initDatePicker("edit-contractPeriodEnd");
